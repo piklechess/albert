@@ -2055,8 +2055,11 @@
                 this.ui.animateMove(this, move, () => {
                     this._applyMove(move);
                     if (this._checkEnd()) return;
+                    if (this.mode === 'anim') {
+                        this.ui.setStatus('À vous de jouer', '');
+                        return;
+                    }
                     if (this.mode === 'versus') this._scheduleAiMove(this.aiModel2);
-                    else if (this.mode === 'anim') this.ui.setStatus('À vous de jouer', '');
                 });
             }
 
@@ -2085,6 +2088,7 @@
             }
 
             _scheduleAiMove(modelId) {
+                if (this.mode === 'anim') return;
                 const sessionId = this.sessionId;
                 const personality = getPersonality(modelId);
                 const inCheck = MoveGen.isKingInCheck(this.state, this.state.sideToMove);
@@ -2584,8 +2588,8 @@
 
                 document.getElementById('btnStartAnim').addEventListener('click', () => {
                     fetch('https://countapi.mileshilliard.com/api/v1/hit/albert-chess-global-2026', { cache: 'no-store' }).catch(() => {});
-                    const humanColor = parseInt(document.querySelector('#animColorOptions button.active').dataset.color);
-                    const themeKey = document.querySelector('#themeOptions button.active').dataset.theme;
+                    const humanColor = parseInt(document.querySelector('#animColorOptions button.active')?.dataset.color || '1');
+                    const themeKey = document.querySelector('#themeOptions button.active')?.dataset.theme || 'default';
                     this.ui.applyTheme(themeKey);
                     this.launchGame({ mode: 'anim', humanColor, gameDurationMin: 0 });
                 });
