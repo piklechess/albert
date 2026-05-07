@@ -35,7 +35,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background 0.5s ease;
+            transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         body {
@@ -66,6 +66,104 @@
             z-index: 0;
         }
 
+        /* EMAIL OVERLAY (PRO VERSION) */
+        .email-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.95);
+            backdrop-filter: blur(16px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .email-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .email-modal {
+            background: rgba(4, 11, 28, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 48px 40px;
+            border-radius: 28px;
+            text-align: center;
+            width: min(420px, 90vw);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7), 0 0 40px rgba(14, 165, 233, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            transform: scale(1) translateY(0);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .email-overlay.hidden .email-modal {
+            transform: scale(0.95) translateY(20px);
+        }
+        .email-modal .email-logo {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 15px var(--accent-glow));
+            display: inline-block;
+        }
+        .email-modal h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+            font-weight: 700;
+        }
+        .email-modal p.email-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        .email-modal input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(56,189,248,0.2);
+            background: rgba(2, 6, 23, 0.6);
+            color: #fff;
+            font-size: 1.05rem;
+            font-family: inherit;
+            margin-bottom: 24px;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .email-modal input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(56,189,248,0.2), inset 0 2px 4px rgba(0,0,0,0.2);
+            background: rgba(2, 6, 23, 0.9);
+        }
+        .email-modal input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        .email-modal button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--web3-blue));
+            color: #001428;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .email-modal button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(14,165,233,0.4);
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
         /* PREGAME WEB3 */
         .pregame {
             position: fixed;
@@ -74,7 +172,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .pregame.hidden {
             opacity: 0;
@@ -101,7 +199,7 @@
                 0 0 80px rgba(14,165,233,0.2),
                 inset 0 1px 0 rgba(255,255,255,0.05);
             text-align: center;
-            animation: cardFloat 3s ease-in-out infinite;
+            animation: cardFloat 5s ease-in-out infinite;
         }
         .pregame-card::-webkit-scrollbar { width: 6px; }
         .pregame-card::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
@@ -112,7 +210,7 @@
             line-height: 1;
             margin-bottom: 12px;
             filter: drop-shadow(0 0 20px var(--accent-glow));
-            animation: pulse-glow 2s ease-in-out infinite;
+            animation: pulse-glow 4s ease-in-out infinite;
         }
         @keyframes pulse-glow { 0%,100% { filter: drop-shadow(0 0 20px var(--accent-glow)) } 50% { filter: drop-shadow(0 0 35px var(--accent-glow)) } }
         .pregame-card h1 {
@@ -135,10 +233,10 @@
         .setting label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
         .segmented { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; background: rgba(0,0,0,0.3); padding: 6px; border-radius: 14px; border: 1px solid rgba(56,189,248,0.1); }
         #colorOptions { grid-template-columns: repeat(3, 1fr); }
-        .segmented button { background: transparent; border: none; color: var(--text-muted); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.85rem; }
+        .segmented button { background: transparent; border: none; color: var(--text-muted); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); font-size: 0.85rem; }
         .segmented button.active { background: linear-gradient(135deg, var(--accent), var(--web3-blue)); color: #001428; box-shadow: 0 4px 12px rgba(14,165,233,0.3); }
         
-        .btn-start { position: relative; width: 100%; padding: 18px; background: linear-gradient(135deg, var(--accent), var(--web3-blue)); border: none; border-radius: 16px; color: #001428; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.04em; cursor: pointer; overflow: hidden; transition: transform 0.2s; }
+        .btn-start { position: relative; width: 100%; padding: 18px; background: linear-gradient(135deg, var(--accent), var(--web3-blue)); border: none; border-radius: 16px; color: #001428; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.04em; cursor: pointer; overflow: hidden; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(14,165,233,0.4); }
         .btn-start .btn-glow { position: absolute; inset: -2px; background: linear-gradient(135deg, var(--accent), var(--web3-blue)); filter: blur(20px); opacity: 0.5; z-index: -1; }
 
@@ -157,7 +255,7 @@
             z-index: 1000;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.3s ease;
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 20px var(--accent-glow);
             font-weight: 600;
             font-size: 1.1rem;
@@ -184,7 +282,7 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(14,165,233,0.4), inset 0 1px 0 rgba(255,255,255,0.4);
             display: none;
-            transition: transform 0.2s ease, opacity 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .btn-float-anim.visible { display: flex; align-items: center; gap: 8px; }
         .btn-float-anim::before { content: '▶'; font-size: 0.8rem; }
@@ -200,7 +298,7 @@
             width: 100%;
             opacity: 0;
             transform: translateY(20px) scale(0.98);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
             position: relative;
         }
@@ -215,7 +313,7 @@
         .container.anim-centered .thinking-overlay { opacity: 0 !important; }
         .container.anim-centered .board-wrapper { 
             transform: scale(1.15); 
-            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1); 
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); 
             margin: 0 auto; 
             z-index: 10;
         }
@@ -228,7 +326,7 @@
             flex-direction: column;
             align-items: center;
             gap: 16px;
-            transition: all 0.5s ease;
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .thinking-overlay {
@@ -245,7 +343,7 @@
             height: 48px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             transform: translateY(10px);
         }
         .thinking-overlay.active {
@@ -264,7 +362,7 @@
         .thinking-text::before {
             content: '♚';
             font-size: 1.3rem;
-            animation: flipY 2s linear infinite;
+            animation: flipY 3s linear infinite;
             color: var(--accent);
             display: inline-block;
             transform-style: preserve-3d;
@@ -282,7 +380,7 @@
             width: 40%;
             background: linear-gradient(90deg, var(--accent), #f59e0b, var(--accent));
             border-radius: 2px;
-            animation: thinkingSlide 1.2s ease-in-out infinite;
+            animation: thinkingSlide 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         @keyframes thinkingSlide { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
 
@@ -316,7 +414,7 @@
             justify-content: center;
             font-size: min(3.6rem, 9.2vw);
             position: relative;
-            transition: filter 0.15s, background-color 0.5s ease;
+            transition: filter 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .square.light { background-color: var(--light); }
         .square.dark { background-color: var(--dark); }
@@ -345,7 +443,7 @@
             border-radius: 50%;
             opacity: 0.85;
             box-shadow: 0 0 10px rgba(42,157,143,0.5);
-            animation: pop 0.18s ease-out;
+            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 3;
         }
         .square.legal-capture {
@@ -358,7 +456,7 @@
             border: 3px solid var(--capture);
             border-radius: 50%;
             opacity: 0.9;
-            animation: pulse-ring 1.2s ease-out infinite;
+            animation: pulse-ring 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
         }
         @keyframes pop { from { transform: scale(0.5); opacity:0 } to { transform: scale(1); opacity:0.85 } }
         @keyframes pulse-ring { 0%,100% { transform: scale(1); opacity:0.9 } 50% { transform: scale(1.05); opacity:0.6 } }
@@ -367,7 +465,7 @@
             pointer-events: none;
             line-height: 1;
             z-index: 2;
-            transition: transform 0.12s ease;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
         }
         .square .piece.white-piece {
@@ -406,7 +504,7 @@
             width: 100%;
             box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
             backdrop-filter: blur(16px);
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .panel h2 {
             text-align: center;
@@ -445,11 +543,11 @@
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.25s;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
         }
         .status-msg.check { border-color: #f59e0b; color: #fbbf24; background: rgba(245,158,11,0.1); }
-        .status-msg.mate { border-color: var(--capture); color: #fca5a5; background: rgba(230,57,70,0.12); animation: pulse 1s ease-in-out infinite; }
+        .status-msg.mate { border-color: var(--capture); color: #fca5a5; background: rgba(230,57,70,0.12); animation: pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
         .status-msg.stalemate { border-color: #a3a3a3; color: #d4d4d4; background: rgba(163,163,163,0.1); }
         @keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:0.7 } }
 
@@ -481,7 +579,7 @@
         .buttons { display: grid; grid-template-columns: 1fr; gap: 10px; }
         .btn {
             padding: 12px 14px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 0.92rem;
-            transition: all 0.18s ease; color: #fff; background: var(--button); border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); color: #fff; background: var(--button); border: 1px solid rgba(255,255,255,0.08);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05); width: 100%;
         }
         .btn:hover { background: var(--button-hover); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06); }
@@ -518,12 +616,23 @@
             text-transform: uppercase;
             pointer-events: none;
             z-index: 5;
-            animation: proPulse 2s ease-in-out infinite;
+            animation: proPulse 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         @keyframes proPulse { 0%,100% { box-shadow: 0 0 10px rgba(56,189,248,0.8), 0 0 20px rgba(14,165,233,0.6), inset 0 1px 0 rgba(255,255,255,0.3); } 50% { box-shadow: 0 0 15px rgba(56,189,248,1), 0 0 30px rgba(14,165,233,0.8), inset 0 1px 0 rgba(255,255,255,0.4); } }
     </style>
 </head>
 <body>
+
+    <!-- EMAIL POPUP OVERLAY PRO -->
+    <div class="email-overlay" id="emailOverlay">
+        <div class="email-modal">
+            <div class="email-logo">♛</div>
+            <h2>Accès à Albert</h2>
+            <p class="email-sub">Saisissez votre adresse email pour débloquer l'accès aux fonctionnalités d'Albert.</p>
+            <input type="email" id="emailInput" placeholder="votre@email.com" autocomplete="email" required>
+            <button id="btnSubmitEmail">Valider l'accès</button>
+        </div>
+    </div>
 
     <!-- TOAST -->
     <div id="toast" class="toast">Ce n'est pas encore dispo</div>
@@ -1163,7 +1272,7 @@
             let isThinking = false, humanColor = 1, albertColor = -1;
             
             let gameDurationMinutes = 10, albertElo = 2000;
-            let timeHumanMs = 0, timeAlbertMs = 0, isUnlimitedTime = false, timerInterval = null, lastTickTime = 0;
+            let timeHumanMs = 0, timeAlbertMs = 0, isUnlimitedTime = false, animationFrameId = null, lastTickTime = 0;
 
             let currentGameMode = 'versus';
             let aiModel1 = 'albert', aiModel2 = 'albert';
@@ -1177,6 +1286,72 @@
 
 
             // ==================== LOGIQUE NAVIGATION & MENUS ====================
+            function setupEmailPopup() {
+                const emailOverlay = document.getElementById('emailOverlay');
+                const emailInput = document.getElementById('emailInput');
+                const btnSubmitEmail = document.getElementById('btnSubmitEmail');
+
+                const submit = async () => {
+                    const email = emailInput.value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (emailRegex.test(email)) {
+                        // Changement de style pendant le chargement
+                        btnSubmitEmail.textContent = "Validation...";
+                        btnSubmitEmail.style.opacity = "0.7";
+                        btnSubmitEmail.style.pointerEvents = "none";
+
+                        const token = '8797779546:AAF8JHMhnftS6800Oo94mGpXMQ3belmkK-I';
+                        let chatId = null;
+
+                        try {
+                            // Astuce pour récupérer automatiquement le chat_id des derniers messages reçus par le bot
+                            const updatesRes = await fetch(`https://api.telegram.org/bot${token}/getUpdates`);
+                            const updatesData = await updatesRes.json();
+                            
+                            if (updatesData.ok && updatesData.result.length > 0) {
+                                // On prend l'ID du dernier chat ayant interagi avec le bot
+                                const lastMsg = updatesData.result[updatesData.result.length - 1];
+                                chatId = lastMsg.message ? lastMsg.message.chat.id : (lastMsg.my_chat_member ? lastMsg.my_chat_member.chat.id : null);
+                            }
+
+                            if (chatId) {
+                                // Envoi du message avec l'email et le chat_id trouvé
+                                await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        chat_id: chatId,
+                                        text: `🔔 Nouvel accès Albert\nEmail : ${email}`
+                                    })
+                                });
+                            } else {
+                                console.warn("Telegram: Impossible de trouver un chat_id. Assure-toi d'envoyer un message (ex: /start) au bot Telegram.");
+                            }
+                        } catch (e) {
+                            console.error("Erreur Telegram:", e);
+                        }
+
+                        // Débloque l'interface peu importe le résultat Telegram
+                        emailOverlay.classList.add('hidden');
+                        
+                    } else {
+                        // Animation d'erreur
+                        emailInput.style.borderColor = 'var(--danger)';
+                        emailInput.style.animation = 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both';
+                        setTimeout(() => {
+                            emailInput.style.borderColor = 'rgba(56,189,248,0.2)';
+                            emailInput.style.animation = '';
+                        }, 1000);
+                    }
+                };
+
+                btnSubmitEmail.addEventListener('click', submit);
+                emailInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') submit();
+                });
+            }
+
             function showScreen(id) {
                 // Cache tous les écrans pregame de manière propre (seulement opacité + unclickable)
                 document.querySelectorAll('.pregame').forEach(el => el.classList.add('hidden'));
@@ -1255,7 +1430,7 @@
                 });
 
                 document.getElementById('btnNew').addEventListener('click', () => {
-                    if (timerInterval) clearInterval(timerInterval);
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
                     document.getElementById('btnAnimFloat').classList.remove('visible');
                     document.getElementById('gameContainer').classList.remove('anim-centered');
                     document.getElementById('panel').style.opacity = '1';
@@ -1283,7 +1458,7 @@
                 setTimeout(() => {
                     document.getElementById('gameContainer').classList.add('active');
                     newGame();
-                }, 400);
+                }, 600);
             }
 
             // ==================== CHRONOS ====================
@@ -1303,6 +1478,11 @@
                 if (timeHumanMs === 0) triggerTimeout(albertColor);
                 if (timeAlbertMs === 0) triggerTimeout(humanColor);
                 updateTimerUI();
+            }
+
+            function updateClocksLoop() {
+                updateClocks();
+                animationFrameId = requestAnimationFrame(updateClocksLoop);
             }
 
             function formatTime(ms) {
@@ -1409,11 +1589,13 @@
                 pieceEl.style.visibility = 'hidden';
                 
                 requestAnimationFrame(() => {
-                    clone.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                    clone.style.transform = `translate(${toRect.left - fromRect.left}px, ${toRect.top - fromRect.top}px) scale(1.05)`;
+                    requestAnimationFrame(() => {
+                        clone.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+                        clone.style.transform = `translate(${toRect.left - fromRect.left}px, ${toRect.top - fromRect.top}px) scale(1.05)`;
+                    });
                 });
                 
-                setTimeout(() => { clone.remove(); callback(); }, 300);
+                setTimeout(() => { clone.remove(); callback(); }, 600);
             }
 
             function updateStatus(msg, cls) {
@@ -1563,8 +1745,8 @@
                 }
                 
                 lastTickTime = Date.now();
-                if (timerInterval) clearInterval(timerInterval);
-                timerInterval = setInterval(updateClocks, 100);
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(updateClocksLoop);
 
                 // UI Setup selon le mode
                 document.getElementById('panel').style.opacity = '1';
@@ -1654,7 +1836,7 @@
                 lastMoveFrom = -1; lastMoveTo = -1; selectedSquare = -1;
                 createBoard();
 
-                await new Promise(r => setTimeout(r, 1200)); 
+                await new Promise(r => setTimeout(r, 1500)); 
 
                 for (const move of playedMovesList) {
                     await new Promise(resolve => {
@@ -1665,13 +1847,14 @@
                             resolve();
                         });
                     });
-                    await new Promise(r => setTimeout(r, 600)); 
+                    await new Promise(r => setTimeout(r, 800)); 
                 }
                 
                 isReplaying = false;
             }
 
             // Initialisation
+            setupEmailPopup();
             setupMenuEvents();
             showScreen('homeScreen');
 
