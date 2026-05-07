@@ -274,6 +274,29 @@
         .btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(14,165,233,0.4); }
         .btn-start .btn-glow { position: absolute; inset: -2px; background: linear-gradient(135deg, var(--accent), var(--web3-blue)); filter: blur(20px); opacity: 0.5; z-index: -1; }
 
+        /* BOUTON RETOUR */
+        .btn-back {
+            position: absolute;
+            top: 20px; 
+            left: 20px;
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(56,189,248,0.2);
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 10;
+        }
+        .btn-back:hover {
+            background: rgba(56,189,248,0.15);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateX(-2px);
+        }
+
         .hidden-setting { display: none !important; }
 
         /* TOAST */
@@ -708,6 +731,7 @@
     <div class="pregame hidden" id="pregameVersus">
         <div class="pregame-bg"></div>
         <div class="pregame-card" style="padding-top: 36px; padding-bottom: 36px;">
+            <button class="btn-back btn-go-home">← Retour</button>
             <div class="logo" style="font-size: 2.5rem;">⚔️</div>
             <h1 style="font-size: 2rem;">VERSUS</h1>
             
@@ -785,6 +809,7 @@
     <div class="pregame hidden" id="pregameAnimation">
         <div class="pregame-bg"></div>
         <div class="pregame-card" style="padding-top: 36px; padding-bottom: 36px;">
+            <button class="btn-back btn-go-home">← Retour</button>
             <div class="logo" style="font-size: 2.5rem;">✨</div>
             <h1 style="font-size: 2rem;">ANIMATION</h1>
             
@@ -878,7 +903,7 @@
             const PST_PAWN = [0,0,0,0,0,0,0,0, 50,50,50,50,50,50,50,50, 10,10,20,30,30,20,10,10, 5,5,10,27,27,10,5,5, 0,0,0,22,22,0,0,0, 5,-5,-10,0,0,-10,-5,5, 5,10,10,-20,-20,10,10,5, 0,0,0,0,0,0,0,0];
             const PST_KNIGHT = [-50,-40,-30,-30,-30,-30,-40,-50, -40,-20,0,0,0,0,-20,-40, -30,0,10,15,15,10,0,-30, -30,5,15,20,20,15,5,-30, -30,0,15,20,20,15,0,-30, -30,5,10,15,15,10,5,-30, -40,-20,0,5,5,0,-20,-40, -50,-40,-30,-30,-30,-30,-40,-50];
             const PST_BISHOP = [-20,-10,-10,-10,-10,-10,-10,-20, -10,0,0,0,0,0,0,-10, -10,0,10,10,10,10,0,-10, -10,5,5,10,10,5,5,-10, -10,0,10,10,10,10,0,-10, -10,10,10,10,10,10,10,-10, -10,5,0,0,0,0,5,-10, -20,-10,-10,-10,-10,-10,-10,-20];
-            const PST_ROOK = [0,0,0,0,0,0,0,0, 5,10,10,10,10,10,10,5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, 0,0,0,5,5,0,0,0];
+            const PST_ROOK = [0,0,0,0,0,0,0,0, 5,10,10,10,10,10,10,5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, -5,0,0,0,0,0,0,-5, 0,0,0,5,5,0,0,0];
             const PST_QUEEN = [-20,-10,-10,-5,-5,-10,-10,-20, -10,0,0,0,0,0,0,-10, -10,0,5,5,5,5,0,-10, -5,0,5,5,5,5,0,-5, 0,0,5,5,5,5,0,-5, -10,5,5,5,5,5,0,-10, -10,0,5,0,0,0,0,-10, -20,-10,-10,-5,-5,-10,-10,-20];
             const PST_KING_MID = [-30,-40,-40,-50,-50,-40,-40,-30, -30,-40,-40,-50,-50,-40,-40,-30, -30,-40,-40,-50,-50,-40,-40,-30, -30,-40,-40,-50,-50,-40,-40,-30, -20,-30,-30,-40,-40,-30,-30,-20, -10,-20,-20,-20,-20,-20,-20,-10, 20,20,0,0,0,0,20,20, 20,30,10,0,0,10,30,20];
 
@@ -1330,6 +1355,12 @@
                 const emailInput = document.getElementById('emailInput');
                 const btnSubmitEmail = document.getElementById('btnSubmitEmail');
 
+                // Cache instantanément le popup si l'email a déjà été donné
+                if (localStorage.getItem('albert_email_submitted') === 'true') {
+                    emailOverlay.style.display = 'none';
+                    emailOverlay.classList.add('hidden');
+                }
+
                 const submit = async () => {
                     const email = emailInput.value.trim();
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1339,6 +1370,9 @@
                         btnSubmitEmail.textContent = "Validation...";
                         btnSubmitEmail.style.opacity = "0.7";
                         btnSubmitEmail.style.pointerEvents = "none";
+
+                        // Sauvegarde l'état pour les prochaines visites
+                        localStorage.setItem('albert_email_submitted', 'true');
 
                         const token = '8797779546:AAF8JHMhnftS6800Oo94mGpXMQ3belmkK-I';
                         let chatId = null;
@@ -1373,6 +1407,7 @@
 
                         // Débloque l'interface peu importe le résultat Telegram
                         emailOverlay.classList.add('hidden');
+                        setTimeout(() => { emailOverlay.style.display = 'none'; }, 800); // Nettoie le DOM après l'animation
                         
                     } else {
                         // Animation d'erreur
@@ -1414,6 +1449,11 @@
                 document.getElementById('btnGoAnim').addEventListener('click', () => showScreen('pregameAnimation'));
                 document.getElementById('btnGoVersus').addEventListener('click', () => showScreen('pregameVersus'));
                 document.getElementById('btnGoRanked').addEventListener('click', () => showToast("Ce n'est pas encore dispo"));
+
+                // Boutons Retour
+                document.querySelectorAll('.btn-go-home').forEach(btn => {
+                    btn.addEventListener('click', () => showScreen('homeScreen'));
+                });
 
                 // Universal Segmented Setup
                 document.querySelectorAll('.segmented').forEach(seg => {
