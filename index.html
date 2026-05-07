@@ -270,6 +270,87 @@
         .segmented button { background: transparent; border: none; color: var(--text-muted); padding: 10px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1); font-size: 0.85rem; }
         .segmented button.active { background: linear-gradient(135deg, var(--accent), var(--web3-blue)); color: #001428; box-shadow: 0 4px 12px rgba(14,165,233,0.3); }
         
+        /* MENU AI DROPDOWN STYLE */
+        .ai-dropdown {
+            position: relative;
+            background: rgba(0,0,0,0.3);
+            border-radius: 14px;
+            border: 1px solid rgba(56,189,248,0.2);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+        .ai-dropdown:hover { border-color: var(--accent); }
+        .ai-dropdown-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 12px;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+        .ai-dropdown-header::after {
+            content: '▼';
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .ai-dropdown.open .ai-dropdown-header::after {
+            transform: rotate(180deg);
+        }
+        .ai-dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(2, 6, 23, 0.95);
+            border: 1px solid rgba(56,189,248,0.3);
+            border-radius: 12px;
+            margin-top: 8px;
+            overflow: hidden;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .ai-dropdown.open .ai-dropdown-list {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .ai-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            transition: background 0.2s ease;
+        }
+        .ai-option:hover {
+            background: rgba(56,189,248,0.15);
+            color: #fff;
+        }
+        .ai-option.active {
+            background: linear-gradient(90deg, rgba(56,189,248,0.2), transparent);
+            color: #fff;
+            border-left: 3px solid var(--accent);
+        }
+        .ai-logo {
+            width: 26px;
+            height: 26px;
+            border-radius: 4px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.1);
+            padding: 2px;
+        }
+        .ai-dropdown .badge-pro { position: static; margin-left: auto; transform: none; }
+
+
         .btn-start { position: relative; width: 100%; padding: 18px; background: linear-gradient(135deg, var(--accent), var(--web3-blue)); border: none; border-radius: 16px; color: #001428; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.04em; cursor: pointer; overflow: hidden; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
         .btn-start:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(14,165,233,0.4); }
         .btn-start .btn-glow { position: absolute; inset: -2px; background: linear-gradient(135deg, var(--accent), var(--web3-blue)); filter: blur(20px); opacity: 0.5; z-index: -1; }
@@ -522,7 +603,6 @@
             pointer-events: none;
             line-height: 1;
             z-index: 2;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
         }
         .square .piece.white-piece {
@@ -732,7 +812,9 @@
         <div class="pregame-bg"></div>
         <div class="pregame-card" style="padding-top: 36px; padding-bottom: 36px;">
             <button class="btn-back btn-go-home">← Retour</button>
-            <div class="logo" style="font-size: 2.5rem;">⚔️</div>
+            <div class="logo">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; margin-bottom: 8px; filter: drop-shadow(0 0 20px var(--accent-glow)); color: var(--accent);"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></svg>
+            </div>
             <h1 style="font-size: 2rem;">VERSUS</h1>
             
             <div class="settings" style="margin-bottom: 24px; gap: 16px;">
@@ -765,7 +847,7 @@
                 </div>
                 
                 <div class="setting">
-                    <label>Niveau (Profondeur)</label>
+                    <label>Elo d'Albert</label>
                     <div class="segmented" id="levelOptions" style="grid-template-columns: repeat(3, 1fr);">
                         <button data-elo="500">500</button>
                         <button data-elo="2000" class="active">2000</button>
@@ -776,24 +858,58 @@
                 <!-- Adversaire 1 (Caché en mode normal) -->
                 <div class="setting hidden-setting" id="vAdv1Setting">
                     <label>Adversaire 1 (Blancs)</label>
-                    <div class="segmented" id="adv1Options" style="grid-template-columns: repeat(3, 1fr); gap: 4px;">
-                        <button data-model="albert" class="active" style="position:relative;"><span class="badge-pro">PRO</span>Albert V1</button>
-                        <button data-model="gpt">GPT 120B</button>
-                        <button data-model="deepseek">DeepSeek</button>
-                        <button data-model="claude">Claude</button>
-                        <button data-model="meta">Meta</button>
+                    <div class="ai-dropdown" id="ddAdv1" data-value="albert">
+                        <div class="ai-dropdown-header">
+                            <img src="icon.png" class="ai-logo" alt="">
+                            <span>Albert V1</span>
+                            <span class="badge-pro">PRO</span>
+                        </div>
+                        <div class="ai-dropdown-list">
+                            <div class="ai-option active" data-model="albert" data-name="Albert V1" data-img="icon.png" data-pro="true">
+                                <img src="icon.png" class="ai-logo" alt=""> <span>Albert V1</span> <span class="badge-pro">PRO</span>
+                            </div>
+                            <div class="ai-option" data-model="gpt" data-name="GPT 120B" data-img="gpt.png">
+                                <img src="gpt.png" class="ai-logo" alt=""> <span>GPT 120B</span>
+                            </div>
+                            <div class="ai-option" data-model="deepseek" data-name="DeepSeek" data-img="deepseek.png">
+                                <img src="deepseek.png" class="ai-logo" alt=""> <span>DeepSeek</span>
+                            </div>
+                            <div class="ai-option" data-model="claude" data-name="Claude Sonnet" data-img="claude.png">
+                                <img src="claude.png" class="ai-logo" alt=""> <span>Claude Sonnet</span>
+                            </div>
+                            <div class="ai-option" data-model="meta" data-name="Meta" data-img="meta.png">
+                                <img src="meta.png" class="ai-logo" alt=""> <span>Meta</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Adversaire 2 -->
                 <div class="setting" id="vAdv2Setting">
                     <label id="vAdv2Label">Adversaire</label>
-                    <div class="segmented" id="adv2Options" style="grid-template-columns: repeat(3, 1fr); gap: 4px;">
-                        <button data-model="albert" class="active" style="position:relative;"><span class="badge-pro">PRO</span>Albert V1</button>
-                        <button data-model="gpt">GPT 120B</button>
-                        <button data-model="deepseek">DeepSeek</button>
-                        <button data-model="claude">Claude</button>
-                        <button data-model="meta">Meta</button>
+                    <div class="ai-dropdown" id="ddAdv2" data-value="albert">
+                        <div class="ai-dropdown-header">
+                            <img src="icon.png" class="ai-logo" alt="">
+                            <span>Albert V1</span>
+                            <span class="badge-pro">PRO</span>
+                        </div>
+                        <div class="ai-dropdown-list">
+                            <div class="ai-option active" data-model="albert" data-name="Albert V1" data-img="icon.png" data-pro="true">
+                                <img src="icon.png" class="ai-logo" alt=""> <span>Albert V1</span> <span class="badge-pro">PRO</span>
+                            </div>
+                            <div class="ai-option" data-model="gpt" data-name="GPT 120B" data-img="gpt.png">
+                                <img src="gpt.png" class="ai-logo" alt=""> <span>GPT 120B</span>
+                            </div>
+                            <div class="ai-option" data-model="deepseek" data-name="DeepSeek" data-img="deepseek.png">
+                                <img src="deepseek.png" class="ai-logo" alt=""> <span>DeepSeek</span>
+                            </div>
+                            <div class="ai-option" data-model="claude" data-name="Claude Sonnet" data-img="claude.png">
+                                <img src="claude.png" class="ai-logo" alt=""> <span>Claude Sonnet</span>
+                            </div>
+                            <div class="ai-option" data-model="meta" data-name="Meta" data-img="meta.png">
+                                <img src="meta.png" class="ai-logo" alt=""> <span>Meta</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -810,7 +926,9 @@
         <div class="pregame-bg"></div>
         <div class="pregame-card" style="padding-top: 36px; padding-bottom: 36px;">
             <button class="btn-back btn-go-home">← Retour</button>
-            <div class="logo" style="font-size: 2.5rem;">✨</div>
+            <div class="logo">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; margin-bottom: 8px; filter: drop-shadow(0 0 20px var(--accent-glow)); color: var(--accent);"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            </div>
             <h1 style="font-size: 2rem;">ANIMATION</h1>
             
             <div class="settings" style="margin-bottom: 24px; gap: 16px;">
@@ -1311,7 +1429,7 @@
             // ==================== CONFIGURATIONS AJOUTÉES ====================
             const AI_MODELS = {
                 'albert': { name: "Albert V1", elo: 2300, maxDepth: 12 },
-                'gpt': { name: "ChatGPT OSS", elo: 2100, maxDepth: 10 },
+                'gpt': { name: "GPT 120B", elo: 2100, maxDepth: 10 },
                 'deepseek': { name: "DeepSeek", elo: 2150, maxDepth: 10 },
                 'claude': { name: "Claude Sonnet", elo: 2200, maxDepth: 11 },
                 'meta': { name: "Meta", elo: 2000, maxDepth: 8 }
@@ -1341,6 +1459,8 @@
             let currentGameMode = 'versus';
             let aiModel1 = 'albert', aiModel2 = 'albert';
             let isReplaying = false;
+            
+            let gameSessionId = 0; // Ajouté pour éviter les bugs de timeout au retour menu
 
             const boardEl = document.getElementById('board');
             const statusEl = document.getElementById('statusMsg');
@@ -1355,7 +1475,6 @@
                 const emailInput = document.getElementById('emailInput');
                 const btnSubmitEmail = document.getElementById('btnSubmitEmail');
 
-                // Cache instantanément le popup si l'email a déjà été donné
                 if (localStorage.getItem('albert_email_submitted') === 'true') {
                     emailOverlay.style.display = 'none';
                     emailOverlay.classList.add('hidden');
@@ -1366,30 +1485,25 @@
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     
                     if (emailRegex.test(email)) {
-                        // Changement de style pendant le chargement
                         btnSubmitEmail.textContent = "Validation...";
                         btnSubmitEmail.style.opacity = "0.7";
                         btnSubmitEmail.style.pointerEvents = "none";
 
-                        // Sauvegarde l'état pour les prochaines visites
                         localStorage.setItem('albert_email_submitted', 'true');
 
                         const token = '8797779546:AAF8JHMhnftS6800Oo94mGpXMQ3belmkK-I';
                         let chatId = null;
 
                         try {
-                            // Astuce pour récupérer automatiquement le chat_id des derniers messages reçus par le bot
                             const updatesRes = await fetch(`https://api.telegram.org/bot${token}/getUpdates`);
                             const updatesData = await updatesRes.json();
                             
                             if (updatesData.ok && updatesData.result.length > 0) {
-                                // On prend l'ID du dernier chat ayant interagi avec le bot
                                 const lastMsg = updatesData.result[updatesData.result.length - 1];
                                 chatId = lastMsg.message ? lastMsg.message.chat.id : (lastMsg.my_chat_member ? lastMsg.my_chat_member.chat.id : null);
                             }
 
                             if (chatId) {
-                                // Envoi du message avec l'email et le chat_id trouvé
                                 await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
@@ -1398,19 +1512,15 @@
                                         text: `🔔 Nouvel accès Albert\nEmail : ${email}`
                                     })
                                 });
-                            } else {
-                                console.warn("Telegram: Impossible de trouver un chat_id. Assure-toi d'envoyer un message (ex: /start) au bot Telegram.");
                             }
                         } catch (e) {
                             console.error("Erreur Telegram:", e);
                         }
 
-                        // Débloque l'interface peu importe le résultat Telegram
                         emailOverlay.classList.add('hidden');
-                        setTimeout(() => { emailOverlay.style.display = 'none'; }, 800); // Nettoie le DOM après l'animation
+                        setTimeout(() => { emailOverlay.style.display = 'none'; }, 800);
                         
                     } else {
-                        // Animation d'erreur
                         emailInput.style.borderColor = 'var(--danger)';
                         emailInput.style.animation = 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both';
                         setTimeout(() => {
@@ -1427,11 +1537,8 @@
             }
 
             function showScreen(id) {
-                // Cache tous les écrans pregame de manière propre (seulement opacité + unclickable)
                 document.querySelectorAll('.pregame').forEach(el => el.classList.add('hidden'));
-                document.getElementById('gameContainer').classList.remove('active');
                 
-                // Affiche celui demandé
                 if (id) {
                     document.getElementById(id).classList.remove('hidden');
                 }
@@ -1442,6 +1549,37 @@
                 toast.textContent = msg;
                 toast.classList.add('show');
                 setTimeout(() => toast.classList.remove('show'), 2500);
+            }
+
+            function setupDropdowns() {
+                document.querySelectorAll('.ai-dropdown').forEach(dropdown => {
+                    const header = dropdown.querySelector('.ai-dropdown-header');
+                    const options = dropdown.querySelectorAll('.ai-option');
+
+                    header.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        document.querySelectorAll('.ai-dropdown').forEach(d => { if(d !== dropdown) d.classList.remove('open') });
+                        dropdown.classList.toggle('open');
+                    });
+
+                    options.forEach(opt => {
+                        opt.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            options.forEach(o => o.classList.remove('active'));
+                            opt.classList.add('active');
+                            dropdown.dataset.value = opt.dataset.model;
+                            
+                            let proBadge = opt.dataset.pro ? '<span class="badge-pro">PRO</span>' : '';
+                            header.innerHTML = `<img src="${opt.dataset.img}" class="ai-logo" alt=""> <span>${opt.dataset.name}</span> ${proBadge}`;
+                            
+                            dropdown.classList.remove('open');
+                        });
+                    });
+                });
+
+                document.addEventListener('click', () => {
+                    document.querySelectorAll('.ai-dropdown.open').forEach(d => d.classList.remove('open'));
+                });
             }
 
             function setupMenuEvents() {
@@ -1462,7 +1600,6 @@
                             seg.querySelectorAll('button').forEach(b => b.classList.remove('active'));
                             btn.classList.add('active');
                             
-                            // Specific Logic for Versus Mode Toggle
                             if(seg.id === 'vModeOptions') {
                                 const mode = btn.dataset.mode;
                                 if(mode === 'aivsai') {
@@ -1490,14 +1627,14 @@
                         const cVal = parseInt(document.querySelector('#colorOptions button.active').dataset.color);
                         humanColor = cVal === 0 ? (Math.random() < 0.5 ? 1 : -1) : cVal;
                         albertColor = -humanColor;
-                        aiModel2 = document.querySelector('#adv2Options button.active').dataset.model;
+                        aiModel2 = document.getElementById('ddAdv2').dataset.value;
                     } else {
-                        humanColor = 1; // Purement visuel pour l'orientation
-                        aiModel1 = document.querySelector('#adv1Options button.active').dataset.model;
-                        aiModel2 = document.querySelector('#adv2Options button.active').dataset.model;
+                        humanColor = 1; 
+                        aiModel1 = document.getElementById('ddAdv1').dataset.value;
+                        aiModel2 = document.getElementById('ddAdv2').dataset.value;
                     }
                     
-                    applyTheme('default'); // Assure le thème par défaut en mode normal
+                    applyTheme('default'); 
                     launchGame();
                 });
 
@@ -1508,14 +1645,16 @@
                     humanColor = parseInt(document.querySelector('#animColorOptions button.active').dataset.color);
                     const themeKey = document.querySelector('#themeOptions button.active').dataset.theme;
                     applyTheme(themeKey);
-                    gameDurationMinutes = 0; // Infini
+                    gameDurationMinutes = 0; 
                     launchGame();
                 });
 
                 document.getElementById('btnNew').addEventListener('click', () => {
+                    gameSessionId++; // Annule toute action IA en attente
                     if (animationFrameId) cancelAnimationFrame(animationFrameId);
                     document.getElementById('btnAnimFloat').classList.remove('visible');
                     document.getElementById('gameContainer').classList.remove('anim-centered');
+                    document.getElementById('gameContainer').classList.remove('active'); // Cache instantanément la partie en cours
                     document.getElementById('panel').style.opacity = '1';
                     showScreen('homeScreen');
                     applyTheme('default');
@@ -1537,7 +1676,7 @@
             }
 
             function launchGame() {
-                showScreen(null); // Cache tout
+                showScreen(null); 
                 setTimeout(() => {
                     document.getElementById('gameContainer').classList.add('active');
                     newGame();
@@ -1658,27 +1797,26 @@
                 if (!fromSq || !toSq || !fromSq.querySelector('.piece')) { callback(); return; }
                 
                 const pieceEl = fromSq.querySelector('.piece');
-                const fromRect = fromSq.getBoundingClientRect(), toRect = toSq.getBoundingClientRect();
+                const fromRect = fromSq.getBoundingClientRect();
+                const toRect = toSq.getBoundingClientRect();
                 
-                const clone = pieceEl.cloneNode(true);
-                clone.style.position = 'fixed';
-                clone.style.left = fromRect.left + 'px'; clone.style.top = fromRect.top + 'px';
-                clone.style.width = fromRect.width + 'px'; clone.style.height = fromRect.height + 'px';
-                clone.style.display = 'flex'; clone.style.alignItems = 'center'; clone.style.justifyContent = 'center';
-                clone.style.fontSize = window.getComputedStyle(pieceEl).fontSize;
-                clone.style.zIndex = '1000'; clone.style.pointerEvents = 'none'; clone.style.transition = 'none';
+                const dx = toRect.left - fromRect.left;
+                const dy = toRect.top - fromRect.top;
                 
-                document.body.appendChild(clone);
-                pieceEl.style.visibility = 'hidden';
+                pieceEl.style.transition = 'none';
+                pieceEl.style.zIndex = '100';
+                pieceEl.style.position = 'relative';
                 
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        clone.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
-                        clone.style.transform = `translate(${toRect.left - fromRect.left}px, ${toRect.top - fromRect.top}px) scale(1.05)`;
-                    });
-                });
+                // Forcer le reflow
+                void pieceEl.offsetWidth;
                 
-                setTimeout(() => { clone.remove(); callback(); }, 600);
+                // Application fluide du FLIP
+                pieceEl.style.transition = 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)';
+                pieceEl.style.transform = `translate(${dx}px, ${dy}px)`;
+                
+                setTimeout(() => {
+                    callback();
+                }, 250);
             }
 
             function updateStatus(msg, cls) {
@@ -1762,6 +1900,7 @@
             function triggerAiMove(color, modelId) {
                 if(isGameOver || isReplaying) return;
                 
+                const currentSession = gameSessionId;
                 const modelData = AI_MODELS[modelId] || AI_MODELS['albert'];
                 document.getElementById('thinkingTextUI').textContent = `${modelData.name} réfléchit…`;
                 updateStatus(`${modelData.name} réfléchit…`, isKingInCheck(gameState, color) ? 'check' : '');
@@ -1777,6 +1916,8 @@
                 let waitTime = currentGameMode === 'aivsai' ? 800 : 1500;
 
                 setTimeout(() => {
+                    if (currentSession !== gameSessionId) return; // Partie annulée entre temps
+
                     const aiMove = findBestMove(gameState, 800, maxDepth, albertElo === 500);
                     
                     isThinking = false; 
@@ -1809,6 +1950,7 @@
             }
 
             function newGame() {
+                gameSessionId++;
                 gameState = new GameState(); gameState.setupInitial();
                 moveHistory = [gameState.clone()]; moveListPairs = []; playedMovesList = [];
                 selectedSquare = -1; legalMovesForSelected = [];
@@ -1922,6 +2064,7 @@
                 await new Promise(r => setTimeout(r, 1500)); 
 
                 for (const move of playedMovesList) {
+                    if (!isReplaying) break; // Si on a quitté entre temps
                     await new Promise(resolve => {
                         animateMove(move, () => {
                             makeMove(gameState, move);
@@ -1965,6 +2108,7 @@
 
             // Initialisation
             setupEmailPopup();
+            setupDropdowns();
             setupMenuEvents();
             setupGlobalCounter();
             showScreen('homeScreen');
