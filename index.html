@@ -66,6 +66,40 @@
             z-index: 0;
         }
 
+        /* COMPTEUR GLOBAL (FIXÉ EN HAUT À GAUCHE) */
+        .global-counter {
+            position: fixed;
+            top: 24px;
+            left: 24px;
+            background: rgba(2, 6, 23, 0.65);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 8px 14px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+            z-index: 10000;
+            backdrop-filter: blur(8px);
+            transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: top left;
+        }
+        .global-counter span {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .global-counter.pop {
+            transform: scale(1.05);
+        }
+        @media (max-width: 520px) {
+            .global-counter {
+                top: 12px;
+                left: 12px;
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+
         /* EMAIL OVERLAY (PRO VERSION) */
         .email-overlay {
             position: fixed;
@@ -622,6 +656,11 @@
     </style>
 </head>
 <body>
+
+    <!-- COMPTEUR MONDIAL -->
+    <div id="globalCounter" class="global-counter">
+        <span id="globalCounterValue">...</span> parties dans le monde
+    </div>
 
     <!-- EMAIL POPUP OVERLAY PRO -->
     <div class="email-overlay" id="emailOverlay">
@@ -1401,6 +1440,8 @@
                 });
 
                 document.getElementById('btnStartVersus').addEventListener('click', () => {
+                    fetch('https://countapi.mileshilliard.com/api/v1/hit/albert-chess-global-2026', {cache:'no-store'}).catch(e=>console.error(e));
+                    
                     currentGameMode = document.querySelector('#vModeOptions button.active').dataset.mode;
                     gameDurationMinutes = parseInt(document.querySelector('#timeOptions button.active').dataset.min);
                     albertElo = parseInt(document.querySelector('#levelOptions button.active').dataset.elo);
@@ -1421,6 +1462,8 @@
                 });
 
                 document.getElementById('btnStartAnim').addEventListener('click', () => {
+                    fetch('https://countapi.mileshilliard.com/api/v1/hit/albert-chess-global-2026', {cache:'no-store'}).catch(e=>console.error(e));
+                    
                     currentGameMode = 'anim';
                     humanColor = parseInt(document.querySelector('#animColorOptions button.active').dataset.color);
                     const themeKey = document.querySelector('#themeOptions button.active').dataset.theme;
@@ -1853,9 +1896,37 @@
                 isReplaying = false;
             }
 
+            // ==================== COMPTEUR MONDIAL ====================
+            function setupGlobalCounter() {
+                let currentCount = null;
+                const counterBadge = document.getElementById('globalCounter');
+                const counterValue = document.getElementById('globalCounterValue');
+
+                async function fetchCount() {
+                    try {
+                        const res = await fetch('https://countapi.mileshilliard.com/api/v1/get/albert-chess-global-2026', {cache:'no-store'});
+                        const data = await res.json();
+                        if (data && typeof data.value !== 'undefined') {
+                            if (currentCount !== null && currentCount !== data.value) {
+                                counterBadge.classList.add('pop');
+                                setTimeout(() => counterBadge.classList.remove('pop'), 150);
+                            }
+                            currentCount = data.value;
+                            counterValue.textContent = currentCount;
+                        }
+                    } catch (e) {
+                        console.error("CountAPI Error:", e);
+                    }
+                }
+
+                fetchCount();
+                setInterval(fetchCount, 3000);
+            }
+
             // Initialisation
             setupEmailPopup();
             setupMenuEvents();
+            setupGlobalCounter();
             showScreen('homeScreen');
 
         })();
