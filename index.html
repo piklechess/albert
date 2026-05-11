@@ -1415,8 +1415,7 @@
                         <button data-theme="nuit">Nuit Néon</button>
                         <button data-theme="bois">Classique Bois</button>
                         <button data-theme="mono">Monochrome</button>
-                        <button data-theme="piklechess" style="grid-column: 1 / -1; position:relative;"><span class="badge-pro">PRO</span>Piklechess</button>
-                    </div>
+</div>
                 </div>
             </div>
 
@@ -1426,6 +1425,50 @@
             </button>
         </div>
     </div>
+
+        <!-- ÉCRAN ANIMATION : CHOIX SOURCE -->
+    <div class="pregame hidden" id="pregameAnimChoice">
+        <div class="pregame-bg"></div>
+        <div class="pregame-card" style="padding-top: 36px; padding-bottom: 36px;">
+            <button class="btn-back" id="btnBackAnimChoice">← Retour</button>
+            <div class="logo">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; margin-bottom: 8px; filter: drop-shadow(0 0 20px var(--accent-glow)); color: var(--accent);"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+            </div>
+            <h1 style="font-size: 1.8rem; margin-bottom: 8px;">ANIMATION</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 28px;">Choisissez comment fournir les coups</p>
+            <div class="settings" style="gap: 14px; margin-bottom: 0;">
+                <button class="btn-start" id="btnAnimWrite" style="padding: 18px 20px;">
+                    <span>Écrire les coups</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="btn-start" id="btnAnimImport" style="padding: 18px 20px;">
+                    <span>Importer un fichier .txt</span>
+                    <div class="btn-glow"></div>
+                </button>
+                <button class="btn-start" id="btnAnimCreate" style="padding: 18px 20px;">
+                    <span>Créer l'animation</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN ANIMATION : SAISIE MANUELLE -->
+    <div class="pregame hidden" id="pregameAnimWrite">
+        <div class="pregame-bg"></div>
+        <div class="pregame-card" style="padding-top: 36px; padding-bottom: 36px; width: min(560px, 94vw);">
+            <button class="btn-back" id="btnBackAnimWrite">← Retour</button>
+            <h2 style="font-size: 1.5rem; margin-bottom: 12px; color: #fff;">Écrire les coups</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px;">Format : d2d4 c7c6 e2e4 etc.</p>
+            <textarea id="animMovesInput" placeholder="d2d4 c7c6 g1f3..." style="width:100%; min-height:140px; padding:14px 16px; border-radius:14px; border:1px solid rgba(56,189,248,0.25); background:rgba(2,6,23,0.6); color:#fff; font-family:'JetBrains Mono', monospace; font-size:0.95rem; resize:vertical; outline:none; margin-bottom:18px;"></textarea>
+            <button class="btn-start" id="btnAnimWriteLaunch">
+                <span>LANCER LA PREVIEW</span>
+                <div class="btn-glow"></div>
+            </button>
+        </div>
+    </div>
+
+    <input type="file" id="animFileInput" accept=".txt" style="display:none;">
 
     <!-- ANIMATION STUDIO : ÉCRAN DE CHARGEMENT -->
     <div class="anim-screen hidden" id="animLoading">
@@ -3833,7 +3876,59 @@
                     const themeKey = document.querySelector('#themeOptions button.active')?.dataset.theme || 'default';
                     this.ui.applyTheme(themeKey);
                     this.lastAnimTheme = themeKey;
+                    this.lastAnimHumanColor = humanColor;
+                    this.showScreen('pregameAnimChoice');
+                });
+
+                // === NOUVEAU : Choix source animation ===
+                document.getElementById('btnBackAnimChoice').addEventListener('click', () => this.showScreen('pregameAnimation'));
+                document.getElementById('btnBackAnimWrite').addEventListener('click', () => this.showScreen('pregameAnimChoice'));
+                
+                document.getElementById('btnAnimCreate').addEventListener('click', () => {
+                    const humanColor = this.lastAnimHumanColor || 1;
+                    const themeKey = this.lastAnimTheme || 'default';
                     this.launchGame({ mode: 'anim', humanColor, gameDurationMin: 0 });
+                });
+
+                document.getElementById('btnAnimWrite').addEventListener('click', () => {
+                    this.showScreen('pregameAnimWrite');
+                    setTimeout(() => document.getElementById('animMovesInput').focus(), 100);
+                });
+
+                document.getElementById('btnAnimWriteLaunch').addEventListener('click', async () => {
+                    const raw = document.getElementById('animMovesInput').value.trim();
+                    if (!raw) return;
+                    const uciList = raw.split(/[\s,;]+/).filter(m => /^[a-h][1-8][a-h][1-8][qrbn]?$/i.test(m));
+                    if (uciList.length === 0) { alert('Aucun coup valide. Format: d2d4 c7c6'); return; }
+                    const state = new GameState(); state.setupInitial();
+                    const moves = [];
+                    for (const uci of uciList) {
+                        const mv = uciToMove(uci, state);
+                        if (mv) { moves.push(mv); MoveGen.makeMove(state, mv); }
+                    }
+                    await this.runAnimationFlow({ humanColor: this.lastAnimHumanColor || 1, themeKey: this.lastAnimTheme || 'default', moves });
+                });
+
+                document.getElementById('btnAnimImport').addEventListener('click', () => {
+                    document.getElementById('animFileInput').click();
+                });
+
+                document.getElementById('animFileInput').addEventListener('change', async (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    try {
+                        const text = await file.text();
+                        const uciList = text.split(/[\s,;]+/).filter(m => /^[a-h][1-8][a-h][1-8][qrbn]?$/i.test(m));
+                        if (uciList.length === 0) { alert('Aucun coup valide dans le fichier'); return; }
+                        const state = new GameState(); state.setupInitial();
+                        const moves = [];
+                        for (const uci of uciList) {
+                            const mv = uciToMove(uci, state);
+                            if (mv) { moves.push(mv); MoveGen.makeMove(state, mv); }
+                        }
+                        await this.runAnimationFlow({ humanColor: this.lastAnimHumanColor || 1, themeKey: this.lastAnimTheme || 'default', moves });
+                    } catch (err) { alert('Erreur: ' + err.message); }
+                    e.target.value = '';
                 });
 
                 document.getElementById('btnNew').addEventListener('click', () => {
