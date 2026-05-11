@@ -756,6 +756,472 @@
             animation: proPulse 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         @keyframes proPulse { 0%,100% { box-shadow: 0 0 10px rgba(56,189,248,0.8), 0 0 20px rgba(14,165,233,0.6), inset 0 1px 0 rgba(255,255,255,0.3); } 50% { box-shadow: 0 0 15px rgba(56,189,248,1), 0 0 30px rgba(14,165,233,0.8), inset 0 1px 0 rgba(255,255,255,0.4); } }
+
+        /* ============================================================
+           PIKLECHESS THEME — 2D/3D relief, premium luxury board
+           ============================================================ */
+        body.theme-piklechess {
+            background:
+                radial-gradient(900px 600px at 50% 10%, rgba(212,175,55,0.18), transparent 60%),
+                radial-gradient(700px 500px at 15% 90%, rgba(120,40,80,0.25), transparent 60%),
+                radial-gradient(700px 500px at 90% 80%, rgba(60,30,90,0.22), transparent 60%),
+                linear-gradient(180deg, #0a0610 0%, #1a0f24 50%, #261628 100%) !important;
+        }
+        body.theme-piklechess::before {
+            background-image:
+                linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px) !important;
+            background-size: 60px 60px !important;
+        }
+        body.theme-piklechess .board-wrapper {
+            background:
+                linear-gradient(145deg, #3a2615 0%, #1c0e08 50%, #2a1810 100%) !important;
+            border: 2px solid #d4af37 !important;
+            box-shadow:
+                0 30px 70px -15px rgba(0,0,0,0.85),
+                0 0 60px rgba(212,175,55,0.35),
+                inset 0 2px 0 rgba(255,215,140,0.55),
+                inset 0 -2px 0 rgba(80,40,15,0.9),
+                inset 0 0 24px rgba(0,0,0,0.5) !important;
+            border-radius: 22px !important;
+        }
+        body.theme-piklechess .board {
+            border-radius: 10px !important;
+            box-shadow:
+                inset 0 0 0 3px #6b3e10,
+                inset 0 0 0 5px #d4af37,
+                inset 0 0 0 7px #6b3e10,
+                inset 0 0 30px rgba(0,0,0,0.7),
+                0 12px 28px rgba(0,0,0,0.6) !important;
+            overflow: hidden;
+        }
+        body.theme-piklechess .square.light {
+            background:
+                linear-gradient(135deg, #f3dcaa 0%, #e6c587 50%, #c79a5e 100%) !important;
+            box-shadow:
+                inset 2px 2px 0 rgba(255,247,220,0.85),
+                inset -2px -2px 0 rgba(120,70,30,0.5),
+                inset 0 0 12px rgba(255,200,120,0.18);
+        }
+        body.theme-piklechess .square.dark {
+            background:
+                linear-gradient(135deg, #5e3214 0%, #3d1d0a 50%, #1c0d04 100%) !important;
+            box-shadow:
+                inset 2px 2px 0 rgba(160,90,40,0.65),
+                inset -2px -2px 0 rgba(0,0,0,0.7),
+                inset 0 0 14px rgba(0,0,0,0.55);
+        }
+        body.theme-piklechess .square.selected {
+            background:
+                radial-gradient(circle at center, rgba(255,215,100,0.85), rgba(212,175,55,0.55)) !important;
+            box-shadow:
+                inset 0 0 0 3px #ffe9a0,
+                inset 0 0 28px rgba(212,175,55,0.7),
+                0 0 24px rgba(212,175,55,0.55) !important;
+        }
+        body.theme-piklechess .square.last-move {
+            background:
+                radial-gradient(circle at center, rgba(255,200,120,0.5), rgba(190,130,60,0.35)) !important;
+            box-shadow: inset 0 0 16px rgba(255,200,120,0.45) !important;
+        }
+        body.theme-piklechess .square.legal-dot::after {
+            background: radial-gradient(circle, #ffe9a0 0%, #d4af37 70%) !important;
+            box-shadow:
+                0 0 14px rgba(255,215,100,0.85),
+                inset 0 1px 1px rgba(255,255,255,0.7),
+                inset 0 -1px 2px rgba(120,70,10,0.5) !important;
+            width: 30% !important;
+            height: 30% !important;
+        }
+        body.theme-piklechess .square.legal-capture {
+            box-shadow: inset 0 0 0 4px #d4af37 !important;
+        }
+        body.theme-piklechess .square.legal-capture::after {
+            border-color: #ffe9a0 !important;
+            box-shadow: 0 0 16px rgba(255,215,100,0.6);
+        }
+        body.theme-piklechess .square .piece.white-piece {
+            color: #fff7d8 !important;
+            text-shadow:
+                0 0 14px rgba(255,225,140,0.85),
+                0 2px 0 #b88a30,
+                0 4px 0 #6b4a10,
+                0 6px 12px rgba(0,0,0,0.85),
+                0 1px 0 #ffe9a0 !important;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.55));
+        }
+        body.theme-piklechess .square .piece.black-piece {
+            color: #1a0a04 !important;
+            text-shadow:
+                0 2px 0 #4a2a18,
+                0 -1px 0 rgba(255,255,255,0.18),
+                0 4px 8px rgba(0,0,0,0.75),
+                0 0 10px rgba(80,40,15,0.6) !important;
+            filter: drop-shadow(0 3px 4px rgba(0,0,0,0.6));
+        }
+        body.theme-piklechess .square .coord {
+            font-weight: 700 !important;
+            color: rgba(255,215,140,0.55) !important;
+            mix-blend-mode: normal !important;
+            text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+        }
+        body.theme-piklechess .square.light .coord { color: #5a3010 !important; }
+        body.theme-piklechess .square.dark .coord { color: #f4d59a !important; }
+        body.theme-piklechess .panel {
+            background:
+                linear-gradient(160deg, rgba(40,22,12,0.92), rgba(20,10,6,0.92)) !important;
+            border: 1px solid rgba(212,175,55,0.45) !important;
+            box-shadow:
+                0 20px 40px -15px rgba(0,0,0,0.7),
+                inset 0 1px 0 rgba(255,215,140,0.18) !important;
+        }
+        body.theme-piklechess .panel h2 {
+            background: linear-gradient(135deg, #ffe9a0, #d4af37) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        body.theme-piklechess .status-msg {
+            background: rgba(0,0,0,0.35) !important;
+            border-color: rgba(212,175,55,0.25) !important;
+        }
+        body.theme-piklechess .info-card {
+            background: rgba(0,0,0,0.3) !important;
+            border-color: rgba(212,175,55,0.18) !important;
+        }
+        body.theme-piklechess .btn.primary {
+            background: linear-gradient(135deg, #f5d076, #d4af37) !important;
+            color: #2a1810 !important;
+            border-color: rgba(212,175,55,0.5) !important;
+        }
+
+        /* ============================================================
+           ANIMATION STUDIO — Loading / Preview / Export
+           ============================================================ */
+        .anim-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(900px 600px at 50% 10%, rgba(14,165,233,0.18), transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2) 50%, var(--bg3));
+            opacity: 1;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .anim-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        body.theme-piklechess .anim-screen {
+            background:
+                radial-gradient(900px 600px at 50% 10%, rgba(212,175,55,0.18), transparent 60%),
+                radial-gradient(700px 500px at 15% 90%, rgba(120,40,80,0.25), transparent 60%),
+                linear-gradient(180deg, #0a0610 0%, #1a0f24 50%, #261628 100%) !important;
+        }
+
+        /* Loading screen */
+        .anim-loading-card {
+            position: relative;
+            background: rgba(2, 8, 23, 0.85);
+            border: 1px solid rgba(56,189,248,0.2);
+            border-radius: 28px;
+            padding: 56px 48px;
+            width: min(440px, 92vw);
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow:
+                0 0 80px rgba(14,165,233,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        body.theme-piklechess .anim-loading-card {
+            background: rgba(20,10,6,0.92) !important;
+            border-color: rgba(212,175,55,0.45) !important;
+            box-shadow:
+                0 0 80px rgba(212,175,55,0.25),
+                inset 0 1px 0 rgba(255,215,140,0.18) !important;
+        }
+        .anim-loading-piece {
+            font-size: 4.5rem;
+            color: var(--accent);
+            display: inline-block;
+            margin-bottom: 22px;
+            filter: drop-shadow(0 0 22px var(--accent-glow));
+            animation: animSpin 2.2s cubic-bezier(0.6, 0.05, 0.4, 0.95) infinite;
+            transform-style: preserve-3d;
+            line-height: 1;
+        }
+        @keyframes animSpin {
+            0% { transform: rotateY(0deg) translateY(0); }
+            50% { transform: rotateY(180deg) translateY(-8px); }
+            100% { transform: rotateY(360deg) translateY(0); }
+        }
+        .anim-loading-title {
+            font-size: 1.65rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+        .anim-loading-sub {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+            letter-spacing: 0.04em;
+        }
+        .anim-loading-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+        .anim-loading-bar-fill {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            border-radius: 3px;
+            animation: animLoadBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        @keyframes animLoadBar {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .anim-loading-pct {
+            margin-top: 12px;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+        }
+
+        /* Preview screen */
+        .anim-preview-card {
+            position: relative;
+            background: rgba(2, 8, 23, 0.85);
+            border: 1px solid rgba(56,189,248,0.22);
+            border-radius: 28px;
+            padding: 32px;
+            width: min(760px, 94vw);
+            max-height: 92vh;
+            overflow-y: auto;
+            backdrop-filter: blur(20px);
+            box-shadow:
+                0 0 80px rgba(14,165,233,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            text-align: center;
+        }
+        body.theme-piklechess .anim-preview-card {
+            background: rgba(20,10,6,0.92) !important;
+            border-color: rgba(212,175,55,0.45) !important;
+            box-shadow:
+                0 0 80px rgba(212,175,55,0.25),
+                inset 0 1px 0 rgba(255,215,140,0.18) !important;
+        }
+        .anim-preview-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+        .anim-preview-sub {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 22px;
+        }
+        .anim-video-frame {
+            position: relative;
+            width: 100%;
+            background: #000;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(56,189,248,0.25);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.6),
+                inset 0 0 0 1px rgba(255,255,255,0.06),
+                0 0 30px rgba(14,165,233,0.18);
+            aspect-ratio: 16 / 9;
+            margin-bottom: 22px;
+        }
+        body.theme-piklechess .anim-video-frame {
+            border-color: rgba(212,175,55,0.5) !important;
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.7),
+                inset 0 0 0 1px rgba(255,215,140,0.15),
+                0 0 40px rgba(212,175,55,0.28) !important;
+        }
+        .anim-video-frame video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #000;
+            object-fit: contain;
+        }
+        .anim-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .anim-buttons { grid-template-columns: 1fr; }
+        }
+        .anim-btn {
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(56,189,248,0.25);
+            background: rgba(2, 6, 23, 0.6);
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .anim-btn:hover {
+            background: rgba(56,189,248,0.15);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(14,165,233,0.25);
+        }
+        .anim-btn:active { transform: translateY(0) scale(0.98); }
+        .anim-btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--web3-blue));
+            color: #001428;
+            border: none;
+            box-shadow: 0 6px 18px rgba(14,165,233,0.35);
+        }
+        .anim-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 26px rgba(14,165,233,0.55);
+        }
+        .anim-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        body.theme-piklechess .anim-btn {
+            border-color: rgba(212,175,55,0.4) !important;
+            background: rgba(0,0,0,0.4) !important;
+        }
+        body.theme-piklechess .anim-btn:hover {
+            background: rgba(212,175,55,0.18) !important;
+            border-color: #d4af37 !important;
+            box-shadow: 0 8px 22px rgba(212,175,55,0.3) !important;
+        }
+        body.theme-piklechess .anim-btn.primary {
+            background: linear-gradient(135deg, #f5d076, #d4af37) !important;
+            color: #2a1810 !important;
+            box-shadow: 0 6px 18px rgba(212,175,55,0.45) !important;
+        }
+        body.theme-piklechess .anim-btn.primary:hover {
+            box-shadow: 0 10px 28px rgba(212,175,55,0.7) !important;
+        }
+
+        /* Export modal */
+        .anim-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(2,6,23,0.78);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.4s cubic-bezier(0.25,1,0.5,1);
+        }
+        .anim-modal-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .anim-modal {
+            background: rgba(4, 11, 28, 0.95);
+            border: 1px solid rgba(56,189,248,0.3);
+            border-radius: 24px;
+            padding: 36px 32px;
+            width: min(420px, 92vw);
+            box-shadow:
+                0 25px 50px -12px rgba(0,0,0,0.8),
+                0 0 40px rgba(14,165,233,0.2),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            text-align: center;
+            transform: scale(1);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .anim-modal-overlay.hidden .anim-modal {
+            transform: scale(0.95) translateY(20px);
+        }
+        body.theme-piklechess .anim-modal {
+            background: rgba(20,10,6,0.95) !important;
+            border-color: rgba(212,175,55,0.45) !important;
+            box-shadow:
+                0 25px 50px -12px rgba(0,0,0,0.85),
+                0 0 40px rgba(212,175,55,0.28),
+                inset 0 1px 0 rgba(255,215,140,0.15) !important;
+        }
+        .anim-modal h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.04em;
+            margin-bottom: 6px;
+        }
+        .anim-modal-sub {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            letter-spacing: 0.04em;
+        }
+        .anim-modal .setting { margin-bottom: 18px; text-align: left; }
+        .anim-modal .anim-modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .anim-modal .anim-progress {
+            margin-top: 14px;
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            min-height: 18px;
+        }
+        body.theme-piklechess .anim-modal h3 {
+            background: linear-gradient(135deg, #ffe9a0, #d4af37) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+        }
+        body.theme-piklechess .anim-modal .anim-progress {
+            color: #ffe9a0 !important;
+        }
+
+        /* Animation rendering canvas (offscreen-ish) */
+        #animCanvas {
+            position: fixed;
+            top: -10000px;
+            left: -10000px;
+            pointer-events: none;
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -780,7 +1246,7 @@
     <div id="toast" class="toast">Ce n'est pas encore dispo</div>
 
     <!-- BOUTON FLOTTANT ANIMATION -->
-    <button id="btnAnimFloat" class="btn-float-anim">ANIMATION</button>
+    <button id="btnAnimFloat" class="btn-float-anim">CRÉER VIDÉO</button>
 
     <!-- ÉCRAN D'ACCUEIL -->
     <div class="pregame" id="homeScreen">
@@ -949,6 +1415,7 @@
                         <button data-theme="nuit">Nuit Néon</button>
                         <button data-theme="bois">Classique Bois</button>
                         <button data-theme="mono">Monochrome</button>
+                        <button data-theme="piklechess" style="grid-column: 1 / -1; position:relative;"><span class="badge-pro">PRO</span>Piklechess</button>
                     </div>
                 </div>
             </div>
@@ -959,6 +1426,63 @@
             </button>
         </div>
     </div>
+
+    <!-- ANIMATION STUDIO : ÉCRAN DE CHARGEMENT -->
+    <div class="anim-screen hidden" id="animLoading">
+        <div class="anim-loading-card">
+            <div class="anim-loading-piece">♚</div>
+            <div class="anim-loading-title" id="animLoadingTitle">Préparation de la vidéo</div>
+            <div class="anim-loading-sub">Génération de l'animation en cours…</div>
+            <div class="anim-loading-bar"><div class="anim-loading-bar-fill"></div></div>
+            <div class="anim-loading-pct" id="animLoadingPct">0%</div>
+        </div>
+    </div>
+
+    <!-- ANIMATION STUDIO : ÉCRAN APERÇU -->
+    <div class="anim-screen hidden" id="animPreview">
+        <div class="anim-preview-card">
+            <div class="anim-preview-title">APERÇU DE L'ANIMATION</div>
+            <div class="anim-preview-sub">Visualisez puis exportez votre animation</div>
+            <div class="anim-video-frame">
+                <video id="animVideo" controls playsinline></video>
+            </div>
+            <div class="anim-buttons">
+                <button class="anim-btn" id="btnAnimRecreate">↻ Recréer</button>
+                <button class="anim-btn" id="btnAnimBackMenu">← Retour au menu</button>
+                <button class="anim-btn primary" id="btnAnimExport">⬇ Exporter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANIMATION STUDIO : MODALE EXPORT -->
+    <div class="anim-modal-overlay hidden" id="animExportModal">
+        <div class="anim-modal">
+            <h3>EXPORTER LA VIDÉO</h3>
+            <div class="anim-modal-sub">Choisissez le format et la fluidité</div>
+            <div class="setting">
+                <label>Format</label>
+                <div class="segmented" id="exportFormatOptions" style="grid-template-columns: 1fr 1fr;">
+                    <button data-format="16:9" class="active">16 : 9</button>
+                    <button data-format="9:16">9 : 16</button>
+                </div>
+            </div>
+            <div class="setting">
+                <label>Fluidité</label>
+                <div class="segmented" id="exportFpsOptions" style="grid-template-columns: 1fr 1fr;">
+                    <button data-fps="30" class="active">30 fps</button>
+                    <button data-fps="60">60 fps</button>
+                </div>
+            </div>
+            <div class="anim-modal-actions">
+                <button class="anim-btn" id="btnExportCancel">Annuler</button>
+                <button class="anim-btn primary" id="btnExportConfirm">Exporter</button>
+            </div>
+            <div class="anim-progress" id="exportProgress"></div>
+        </div>
+    </div>
+
+    <!-- CANVAS DE RENDU (HORS ÉCRAN) -->
+    <canvas id="animCanvas" width="1280" height="720"></canvas>
 
     <!-- CONTENEUR DU JEU -->
     <div class="container" id="gameContainer">
@@ -1910,13 +2434,585 @@
         //  Themes
         // ====================================================================
         const THEMES = {
-            'default': { light: '#e8efff', dark: '#3b5fa3', bg1: '#020617', bg2: '#0b1736', bg3: '#132757', accent: '#38bdf8' },
-            'rose':    { light: '#fdf2f8', dark: '#f472b6', bg1: '#4c0519', bg2: '#831843', bg3: '#be185d', accent: '#fbcfe8' },
-            'bleu':    { light: '#e0f2fe', dark: '#0284c7', bg1: '#082f49', bg2: '#0c4a6e', bg3: '#0369a1', accent: '#7dd3fc' },
-            'nuit':    { light: '#2d2d44', dark: '#9d4edd', bg1: '#000000', bg2: '#10002b', bg3: '#240046', accent: '#e0aaff' },
-            'bois':    { light: '#f0d9b5', dark: '#b58863', bg1: '#2b1b17', bg2: '#3c2317', bg3: '#4d2c1c', accent: '#e6c280' },
-            'mono':    { light: '#f3f4f6', dark: '#4b5563', bg1: '#111827', bg2: '#1f2937', bg3: '#374151', accent: '#d1d5db' },
+            'default':    { light: '#e8efff', dark: '#3b5fa3', bg1: '#020617', bg2: '#0b1736', bg3: '#132757', accent: '#38bdf8' },
+            'rose':       { light: '#fdf2f8', dark: '#f472b6', bg1: '#4c0519', bg2: '#831843', bg3: '#be185d', accent: '#fbcfe8' },
+            'bleu':       { light: '#e0f2fe', dark: '#0284c7', bg1: '#082f49', bg2: '#0c4a6e', bg3: '#0369a1', accent: '#7dd3fc' },
+            'nuit':       { light: '#2d2d44', dark: '#9d4edd', bg1: '#000000', bg2: '#10002b', bg3: '#240046', accent: '#e0aaff' },
+            'bois':       { light: '#f0d9b5', dark: '#b58863', bg1: '#2b1b17', bg2: '#3c2317', bg3: '#4d2c1c', accent: '#e6c280' },
+            'mono':       { light: '#f3f4f6', dark: '#4b5563', bg1: '#111827', bg2: '#1f2937', bg3: '#374151', accent: '#d1d5db' },
+            'piklechess': { light: '#e6c587', dark: '#3d1d0a', bg1: '#0a0610', bg2: '#1a0f24', bg3: '#261628', accent: '#d4af37' },
         };
+
+        // ====================================================================
+        //  AnimationStudio — Génère et enregistre une animation d'échecs
+        //  Aucun backend : tout est fait avec MediaRecorder + canvas
+        // ====================================================================
+        class AnimationStudio {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d', { alpha: false });
+                this.theme = 'default';
+                this.flipped = false;
+                this.moves = [];
+                this.format = '16:9';
+                this.fps = 30;
+                this.videoBlob = null;
+                this.videoExt = 'mp4';
+                this.videoMime = 'video/mp4';
+                this._cancelled = false;
+                this._lastUrl = null;
+                this._boardCache = null;
+                this._pieceCache = null;
+                this._pieceCacheSize = 0;
+            }
+
+            cancel() { this._cancelled = true; }
+
+            _invalidateCache() { this._boardCache = null; this._pieceCache = null; }
+
+            setTheme(themeKey) {
+                const t = THEMES[themeKey] ? themeKey : 'default';
+                if (t !== this.theme) this._invalidateCache();
+                this.theme = t;
+            }
+            setFlipped(flipped) {
+                const f = !!flipped;
+                if (f !== this.flipped) this._invalidateCache();
+                this.flipped = f;
+            }
+
+            getThemeColors() {
+                const t = THEMES[this.theme] || THEMES.default;
+                return t;
+            }
+            isPikle() { return this.theme === 'piklechess'; }
+
+            _detectMime() {
+                if (typeof MediaRecorder === 'undefined') return null;
+                const candidates = [
+                    { mime: 'video/mp4;codecs=avc1.42E01E,mp4a.40.2', ext: 'mp4' },
+                    { mime: 'video/mp4;codecs=avc1.42E01E',           ext: 'mp4' },
+                    { mime: 'video/mp4;codecs=h264',                  ext: 'mp4' },
+                    { mime: 'video/mp4',                              ext: 'mp4' },
+                    { mime: 'video/webm;codecs=vp9,opus',             ext: 'webm' },
+                    { mime: 'video/webm;codecs=vp9',                  ext: 'webm' },
+                    { mime: 'video/webm;codecs=vp8',                  ext: 'webm' },
+                    { mime: 'video/webm',                             ext: 'webm' },
+                ];
+                for (const c of candidates) {
+                    try { if (MediaRecorder.isTypeSupported(c.mime)) return c; } catch (e) {}
+                }
+                return { mime: '', ext: 'webm' };
+            }
+
+            // Génère une partie courte et "jolie" via le moteur (Albert vs Albert rapides)
+            async generateGame(opts) {
+                opts = opts || {};
+                this._cancelled = false;
+                const targetPlies = opts.targetPlies || 36;
+                const state = new GameState();
+                state.setupInitial();
+                const moves = [];
+                const uciHistory = [];
+                // Deux moteurs distincts avec un peu de hasard pour variété
+                const engineA = new ChessEngine(getPersonality('albert'));
+                const engineB = new ChessEngine(getPersonality('claude'));
+                for (let i = 0; i < targetPlies; i++) {
+                    if (this._cancelled) return false;
+                    const engine = i % 2 === 0 ? engineA : engineB;
+                    let mv = null;
+                    try {
+                        mv = engine.findBestMove(state, {
+                            playedUci: uciHistory.slice(),
+                            timeLimit: 90,
+                            maxDepth: 3,
+                            randomChance: i < 6 ? 0.0 : 0.35,
+                        });
+                    } catch (e) { mv = null; }
+                    if (!mv) break;
+                    // Vérif légalité
+                    const legal = MoveGen.generateLegalMoves(state, state.sideToMove);
+                    const ok = legal.find(m => m.from === mv.from && m.to === mv.to && (m.promotion || 0) === (mv.promotion || 0));
+                    if (!ok) break;
+                    moves.push(ok);
+                    uciHistory.push(moveToUci(ok));
+                    MoveGen.makeMove(state, ok);
+                    if (!MoveGen.hasAnyLegalMove(state, state.sideToMove)) break;
+                    // Laisse respirer le thread JS
+                    if (i % 4 === 0) await new Promise(r => setTimeout(r, 0));
+                }
+                this.moves = moves;
+                return moves.length > 0;
+            }
+
+            _setSize(format) {
+                const prevW = this.canvas.width, prevH = this.canvas.height;
+                if (format === '9:16') {
+                    this.canvas.width = 720;
+                    this.canvas.height = 1280;
+                } else {
+                    this.canvas.width = 1280;
+                    this.canvas.height = 720;
+                }
+                const w = this.canvas.width, h = this.canvas.height;
+                const boardMax = Math.floor(Math.min(w, h) * (format === '9:16' ? 0.92 : 0.88));
+                this.boardSize = boardMax - (boardMax % 8);
+                this.squareSize = this.boardSize / 8;
+                this.boardX = Math.floor((w - this.boardSize) / 2);
+                this.boardY = Math.floor((h - this.boardSize) / 2);
+                if (prevW !== w || prevH !== h) this._invalidateCache();
+            }
+
+            _squareXY(sq) {
+                const rank = sq >> 3, file = sq & 7;
+                const r = this.flipped ? rank : 7 - rank;
+                const f = this.flipped ? 7 - file : file;
+                return {
+                    x: this.boardX + f * this.squareSize,
+                    y: this.boardY + r * this.squareSize,
+                };
+            }
+
+            _drawBackground() {
+                const t = this.getThemeColors();
+                const w = this.canvas.width, h = this.canvas.height;
+                if (this.isPikle()) {
+                    const grad = this.ctx.createLinearGradient(0, 0, 0, h);
+                    grad.addColorStop(0, '#0a0610');
+                    grad.addColorStop(0.5, '#1a0f24');
+                    grad.addColorStop(1, '#261628');
+                    this.ctx.fillStyle = grad;
+                    this.ctx.fillRect(0, 0, w, h);
+                    // Vignette dorée
+                    const r1 = this.ctx.createRadialGradient(w/2, h*0.2, 0, w/2, h*0.2, Math.max(w, h)*0.6);
+                    r1.addColorStop(0, 'rgba(212,175,55,0.18)');
+                    r1.addColorStop(1, 'rgba(212,175,55,0)');
+                    this.ctx.fillStyle = r1;
+                    this.ctx.fillRect(0, 0, w, h);
+                    // Grille discrète
+                    this.ctx.strokeStyle = 'rgba(212,175,55,0.05)';
+                    this.ctx.lineWidth = 1;
+                    for (let x = 0; x < w; x += 60) {
+                        this.ctx.beginPath(); this.ctx.moveTo(x, 0); this.ctx.lineTo(x, h); this.ctx.stroke();
+                    }
+                    for (let y = 0; y < h; y += 60) {
+                        this.ctx.beginPath(); this.ctx.moveTo(0, y); this.ctx.lineTo(w, y); this.ctx.stroke();
+                    }
+                } else {
+                    const grad = this.ctx.createLinearGradient(0, 0, 0, h);
+                    grad.addColorStop(0, t.bg1);
+                    grad.addColorStop(0.5, t.bg2);
+                    grad.addColorStop(1, t.bg3);
+                    this.ctx.fillStyle = grad;
+                    this.ctx.fillRect(0, 0, w, h);
+                    const r1 = this.ctx.createRadialGradient(w/2, h*0.1, 0, w/2, h*0.1, Math.max(w, h)*0.7);
+                    r1.addColorStop(0, this._hexToRgba(t.accent, 0.15));
+                    r1.addColorStop(1, this._hexToRgba(t.accent, 0));
+                    this.ctx.fillStyle = r1;
+                    this.ctx.fillRect(0, 0, w, h);
+                }
+            }
+
+            _drawBoardFrame() {
+                const t = this.getThemeColors();
+                const pad = Math.round(this.squareSize * 0.35);
+                const fx = this.boardX - pad;
+                const fy = this.boardY - pad;
+                const fw = this.boardSize + pad*2;
+                const fh = this.boardSize + pad*2;
+                if (this.isPikle()) {
+                    // Cadre bois + or
+                    const grad = this.ctx.createLinearGradient(fx, fy, fx, fy + fh);
+                    grad.addColorStop(0, '#3a2615');
+                    grad.addColorStop(0.5, '#1c0e08');
+                    grad.addColorStop(1, '#2a1810');
+                    this.ctx.fillStyle = grad;
+                    this._roundRect(fx, fy, fw, fh, 18); this.ctx.fill();
+                    // Filet doré extérieur
+                    this.ctx.strokeStyle = '#d4af37';
+                    this.ctx.lineWidth = 3;
+                    this._roundRect(fx + 1.5, fy + 1.5, fw - 3, fh - 3, 17); this.ctx.stroke();
+                    // Halo doré
+                    this.ctx.save();
+                    this.ctx.shadowColor = 'rgba(212,175,55,0.55)';
+                    this.ctx.shadowBlur = 28;
+                    this.ctx.strokeStyle = 'rgba(212,175,55,0.0)';
+                    this._roundRect(fx, fy, fw, fh, 18); this.ctx.stroke();
+                    this.ctx.restore();
+                    // Filet doré interne (autour de l'échiquier)
+                    const ix = this.boardX - 6, iy = this.boardY - 6;
+                    this.ctx.strokeStyle = '#d4af37';
+                    this.ctx.lineWidth = 4;
+                    this._roundRect(ix, iy, this.boardSize + 12, this.boardSize + 12, 8); this.ctx.stroke();
+                } else {
+                    this.ctx.fillStyle = 'rgba(255,255,255,0.04)';
+                    this._roundRect(fx, fy, fw, fh, 22); this.ctx.fill();
+                    this.ctx.strokeStyle = this._hexToRgba(t.accent, 0.18);
+                    this.ctx.lineWidth = 1;
+                    this._roundRect(fx + 0.5, fy + 0.5, fw - 1, fh - 1, 22); this.ctx.stroke();
+                }
+            }
+
+            _drawBoardSquares(lastFrom, lastTo, hideSq) {
+                const t = this.getThemeColors();
+                for (let rr = 0; rr < 8; rr++) {
+                    for (let ff = 0; ff < 8; ff++) {
+                        const rank = this.flipped ? rr : 7 - rr;
+                        const file = this.flipped ? 7 - ff : ff;
+                        const sq = rank * 8 + file;
+                        const isLight = (rank + file) % 2 !== 0;
+                        const x = this.boardX + ff * this.squareSize;
+                        const y = this.boardY + rr * this.squareSize;
+                        if (this.isPikle()) {
+                            const grad = this.ctx.createLinearGradient(x, y, x + this.squareSize, y + this.squareSize);
+                            if (isLight) {
+                                grad.addColorStop(0, '#f3dcaa');
+                                grad.addColorStop(0.5, '#e6c587');
+                                grad.addColorStop(1, '#c79a5e');
+                            } else {
+                                grad.addColorStop(0, '#5e3214');
+                                grad.addColorStop(0.5, '#3d1d0a');
+                                grad.addColorStop(1, '#1c0d04');
+                            }
+                            this.ctx.fillStyle = grad;
+                            this.ctx.fillRect(x, y, this.squareSize, this.squareSize);
+                            // Relief
+                            this.ctx.strokeStyle = isLight ? 'rgba(255,247,220,0.7)' : 'rgba(160,90,40,0.4)';
+                            this.ctx.lineWidth = 1.5;
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(x + 1, y + this.squareSize - 1);
+                            this.ctx.lineTo(x + 1, y + 1);
+                            this.ctx.lineTo(x + this.squareSize - 1, y + 1);
+                            this.ctx.stroke();
+                            this.ctx.strokeStyle = isLight ? 'rgba(120,70,30,0.45)' : 'rgba(0,0,0,0.6)';
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(x + this.squareSize - 1, y + 1);
+                            this.ctx.lineTo(x + this.squareSize - 1, y + this.squareSize - 1);
+                            this.ctx.lineTo(x + 1, y + this.squareSize - 1);
+                            this.ctx.stroke();
+                        } else {
+                            this.ctx.fillStyle = isLight ? t.light : t.dark;
+                            this.ctx.fillRect(x, y, this.squareSize, this.squareSize);
+                        }
+                        if (sq === lastFrom || sq === lastTo) {
+                            this.ctx.fillStyle = this.isPikle()
+                                ? 'rgba(255,200,120,0.32)'
+                                : this._hexToRgba(t.accent, 0.3);
+                            this.ctx.fillRect(x, y, this.squareSize, this.squareSize);
+                        }
+                    }
+                }
+            }
+
+            _drawPieceAt(piece, cx, cy, opts) {
+                opts = opts || {};
+                const sym = PIECE_UNICODE[piece];
+                if (!sym) return;
+                const isWhite = piece > 0;
+                const sz = (opts.size || this.squareSize) * 0.76;
+                this.ctx.save();
+                this.ctx.font = `${sz}px "Segoe UI Symbol", "DejaVu Sans", "Arial Unicode MS", sans-serif`;
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                // Ombre pour distinguer les pièces blanches dans la vidéo exportée
+                if (isWhite) {
+                    this.ctx.shadowColor = 'rgba(0,0,0,0.75)';
+                    this.ctx.shadowBlur = sz * 0.22;
+                    this.ctx.shadowOffsetX = 0;
+                    this.ctx.shadowOffsetY = sz * 0.10;
+                } else {
+                    this.ctx.shadowColor = 'rgba(0,0,0,0.55)';
+                    this.ctx.shadowBlur = sz * 0.16;
+                    this.ctx.shadowOffsetX = 0;
+                    this.ctx.shadowOffsetY = sz * 0.08;
+                }
+                this.ctx.fillStyle = isWhite ? '#ffffff' : '#000000';
+                this.ctx.fillText(sym, cx, cy);
+                this.ctx.restore();
+            }
+
+            _drawPieces(state, hideSq) {
+                for (let sq = 0; sq < 64; sq++) {
+                    if (sq === hideSq) continue;
+                    const p = state.board[sq];
+                    if (p === EMPTY) continue;
+                    const { x, y } = this._squareXY(sq);
+                    this._drawPieceAt(p, x + this.squareSize/2, y + this.squareSize/2);
+                }
+            }
+
+            _drawWatermark() {
+                const ctx = this.ctx;
+                const w = this.canvas.width, h = this.canvas.height;
+                ctx.save();
+                ctx.globalAlpha = 0.5;
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'bottom';
+                const fs = Math.round(this.squareSize * 0.34);
+                ctx.font = `700 ${fs}px Outfit, "Segoe UI", sans-serif`;
+                ctx.fillStyle = this.isPikle() ? '#ffe9a0' : '#ffffff';
+                ctx.shadowColor = 'rgba(0,0,0,0.55)';
+                ctx.shadowBlur = 8;
+                ctx.shadowOffsetY = 2;
+                const marginX = Math.round(this.squareSize * 0.35);
+                const marginY = Math.round(this.squareSize * 0.28);
+                ctx.fillText('ALBERT', w - marginX, h - marginY);
+                ctx.restore();
+            }
+
+            // Construit la planche statique (fond + cadre + cases + filigrane)
+            // dans un canvas hors-écran. Coût payé une seule fois.
+            _buildBoardCache() {
+                const c = document.createElement('canvas');
+                c.width = this.canvas.width;
+                c.height = this.canvas.height;
+                const offCtx = c.getContext('2d', { alpha: false });
+                const realCtx = this.ctx;
+                this.ctx = offCtx;
+                this._drawBackground();
+                this._drawBoardFrame();
+                this._drawBoardSquares(-1, -1);
+                this._drawWatermark();
+                this.ctx = realCtx;
+                this._boardCache = c;
+            }
+
+            // Pré-rend chaque pièce en sprite. drawImage est ~10x plus rapide
+            // que les fillText multi-couches utilisés pour l'effet 3D.
+            _buildPieceCache() {
+                const pad = Math.max(6, Math.round(this.squareSize * 0.22));
+                const sz = Math.round(this.squareSize + pad * 2);
+                this._pieceCacheSize = sz;
+                this._pieceCachePad = pad;
+                this._pieceCache = {};
+                const realCtx = this.ctx;
+                const pieces = [W_KING, W_QUEEN, W_ROOK, W_BISHOP, W_KNIGHT, W_PAWN,
+                                B_KING, B_QUEEN, B_ROOK, B_BISHOP, B_KNIGHT, B_PAWN];
+                for (const p of pieces) {
+                    const cv = document.createElement('canvas');
+                    cv.width = cv.height = sz;
+                    this.ctx = cv.getContext('2d');
+                    this._drawPieceAt(p, sz/2, sz/2);
+                    this._pieceCache[p] = cv;
+                }
+                this.ctx = realCtx;
+            }
+
+            _drawCachedPiece(piece, cx, cy) {
+                const cv = this._pieceCache && this._pieceCache[piece];
+                if (!cv) return;
+                const sz = this._pieceCacheSize;
+                this.ctx.drawImage(cv, Math.round(cx - sz/2), Math.round(cy - sz/2));
+            }
+
+            _drawHighlight(sq) {
+                if (sq < 0) return;
+                const t = this.getThemeColors();
+                const { x, y } = this._squareXY(sq);
+                this.ctx.fillStyle = this.isPikle()
+                    ? 'rgba(255,200,120,0.32)'
+                    : this._hexToRgba(t.accent, 0.3);
+                this.ctx.fillRect(x, y, this.squareSize, this.squareSize);
+            }
+
+            drawFrame(state, lastFrom, lastTo, anim) {
+                if (!this._boardCache) this._buildBoardCache();
+                if (!this._pieceCache) this._buildPieceCache();
+                this.ctx.drawImage(this._boardCache, 0, 0);
+                this._drawHighlight(lastFrom);
+                if (lastTo !== lastFrom) this._drawHighlight(lastTo);
+                const hide = anim ? anim.from : -1;
+                for (let sq = 0; sq < 64; sq++) {
+                    if (sq === hide) continue;
+                    const p = state.board[sq];
+                    if (p === EMPTY) continue;
+                    const { x, y } = this._squareXY(sq);
+                    this._drawCachedPiece(p, x + this.squareSize/2, y + this.squareSize/2);
+                }
+                if (anim) this._drawCachedPiece(anim.piece, anim.x, anim.y);
+            }
+
+            _roundRect(x, y, w, h, r) {
+                const c = this.ctx;
+                if (typeof c.roundRect === 'function') {
+                    c.beginPath();
+                    c.roundRect(x, y, w, h, r);
+                    return;
+                }
+                c.beginPath();
+                c.moveTo(x + r, y);
+                c.lineTo(x + w - r, y);
+                c.quadraticCurveTo(x + w, y, x + w, y + r);
+                c.lineTo(x + w, y + h - r);
+                c.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+                c.lineTo(x + r, y + h);
+                c.quadraticCurveTo(x, y + h, x, y + h - r);
+                c.lineTo(x, y + r);
+                c.quadraticCurveTo(x, y, x + r, y);
+                c.closePath();
+            }
+
+            _hexToRgba(hex, alpha) {
+                if (!hex) return `rgba(56,189,248,${alpha})`;
+                let h = hex.replace('#', '');
+                if (h.length === 3) h = h.split('').map(c => c+c).join('');
+                const r = parseInt(h.substr(0,2), 16);
+                const g = parseInt(h.substr(2,2), 16);
+                const b = parseInt(h.substr(4,2), 16);
+                return `rgba(${r},${g},${b},${alpha})`;
+            }
+
+            _wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // Enregistre une vidéo en jouant l'animation
+            // opts = { format: '16:9'|'9:16', fps: 30|60, onProgress: fn(0..1) }
+            async record(opts) {
+                opts = opts || {};
+                this._cancelled = false;
+                this.format = opts.format || '16:9';
+                this.fps = opts.fps || 30;
+                const onProgress = opts.onProgress || (() => {});
+                this._setSize(this.format);
+
+                const codec = this._detectMime();
+                if (!codec) throw new Error('MediaRecorder non supporté');
+                this.videoExt = codec.ext;
+                this.videoMime = codec.mime || 'video/webm';
+
+                // Dessine une image initiale AVANT de capturer le stream (sinon le
+                // premier frame peut être noir/vide selon les navigateurs).
+                const state = new GameState();
+                state.setupInitial();
+                this.drawFrame(state, -1, -1, null, 0, this.moves.length);
+
+                // Capture stream — laisser le navigateur choisir son rythme natif
+                // donne souvent de meilleurs résultats qu'un fps imposé.
+                const stream = this.canvas.captureStream(this.fps);
+                // Bitrate modéré : indispensable pour que l'encodeur tienne le
+                // temps réel. À 9 Mb/s l'encodeur software d'un navigateur ralentit
+                // le timeline et la vidéo finit par durer 2-3x trop longtemps.
+                const recOpts = {
+                    videoBitsPerSecond: this.format === '9:16' ? 2500000 : 3500000,
+                };
+                if (codec.mime) recOpts.mimeType = codec.mime;
+                let recorder;
+                try {
+                    recorder = new MediaRecorder(stream, recOpts);
+                } catch (e) {
+                    // Fallback : sans mimeType explicite
+                    recorder = new MediaRecorder(stream, { videoBitsPerSecond: recOpts.videoBitsPerSecond });
+                    this.videoMime = recorder.mimeType || 'video/webm';
+                    if (this.videoMime.indexOf('mp4') >= 0) this.videoExt = 'mp4';
+                    else this.videoExt = 'webm';
+                }
+                const chunks = [];
+                recorder.ondataavailable = e => { if (e.data && e.data.size > 0) chunks.push(e.data); };
+                const stopped = new Promise(res => recorder.addEventListener('stop', res, { once: true }));
+                const errored = new Promise(res => recorder.addEventListener('error', res, { once: true }));
+
+                // start(timeslice) garantit des chunks réguliers — utile pour ne
+                // perdre aucune donnée si quelque chose se passe mal.
+                recorder.start(500);
+
+                const frameMs = 1000 / this.fps;
+
+                // Boucle de rendu hybride : on essaie rAF si le navigateur le
+                // permet (focus, écran allumé), sinon setTimeout. Cela rend
+                // l'enregistrement insensible aux onglets en arrière-plan.
+                const waitFrame = () => new Promise(resolve => {
+                    let done = false;
+                    const finish = () => { if (!done) { done = true; resolve(); } };
+                    requestAnimationFrame(finish);
+                    setTimeout(finish, frameMs);
+                });
+
+                const renderFrames = async (numFrames, drawFn) => {
+                    for (let i = 0; i < numFrames; i++) {
+                        if (this._cancelled) return;
+                        drawFn(i, numFrames);
+                        await waitFrame();
+                    }
+                };
+
+                // Pose initiale courte
+                await renderFrames(15, () => {
+                    this.drawFrame(state, -1, -1, null);
+                });
+
+                // Frame counts fixes — l'horloge réelle est dictée par rAF/setTimeout
+                // dans waitFrame. ~450 ms par coup, soit ~5 s pour 10 coups.
+                const animFramesPerMove = 18;
+                const pauseFramesAfterMove = 9;
+
+                for (let i = 0; i < this.moves.length; i++) {
+                    if (this._cancelled) break;
+                    const move = this.moves[i];
+                    const piece = state.board[move.from];
+                    const from = this._squareXY(move.from);
+                    const to = this._squareXY(move.to);
+                    const fromCx = from.x + this.squareSize/2;
+                    const fromCy = from.y + this.squareSize/2;
+                    const toCx = to.x + this.squareSize/2;
+                    const toCy = to.y + this.squareSize/2;
+                    const hopH = this.squareSize * 0.08;
+
+                    await renderFrames(animFramesPerMove, (idx, total) => {
+                        const t = (idx + 1) / total;
+                        const eased = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2;
+                        const x = fromCx + (toCx - fromCx) * eased;
+                        const y = fromCy + (toCy - fromCy) * eased - Math.sin(t * Math.PI) * hopH;
+                        this.drawFrame(state, -1, -1, { from: move.from, piece, x, y });
+                    });
+                    MoveGen.makeMove(state, move);
+                    await renderFrames(pauseFramesAfterMove, () => {
+                        this.drawFrame(state, move.from, move.to, null);
+                    });
+                    onProgress((i + 1) / this.moves.length);
+                }
+
+                // Pause finale (~24 frames ≈ 400 ms)
+                const lastFrom = this.moves.length ? this.moves[this.moves.length-1].from : -1;
+                const lastTo   = this.moves.length ? this.moves[this.moves.length-1].to   : -1;
+                await renderFrames(24, () => {
+                    this.drawFrame(state, lastFrom, lastTo, null);
+                });
+
+                // Demande explicite des dernières données, puis stop
+                try { recorder.requestData(); } catch (e) {}
+                await this._wait(120);
+                try { recorder.stop(); } catch (e) {}
+                await Promise.race([stopped, errored, this._wait(5000)]);
+
+                // Libère les tracks pour ne pas laisser le stream actif
+                try { stream.getTracks().forEach(tr => tr.stop()); } catch (e) {}
+
+                if (chunks.length === 0) throw new Error('Aucune donnée vidéo capturée');
+                const finalMime = recorder.mimeType || codec.mime || 'video/webm';
+                if (finalMime.indexOf('mp4') >= 0) this.videoExt = 'mp4';
+                else if (finalMime.indexOf('webm') >= 0) this.videoExt = 'webm';
+                this.videoMime = finalMime;
+                const blob = new Blob(chunks, { type: finalMime });
+                if (blob.size === 0) throw new Error('Vidéo vide');
+                this.videoBlob = blob;
+                if (this._lastUrl) { try { URL.revokeObjectURL(this._lastUrl); } catch(e){} }
+                this._lastUrl = URL.createObjectURL(blob);
+                return { url: this._lastUrl, blob, ext: this.videoExt, mime: this.videoMime };
+            }
+
+            downloadLast(filename) {
+                if (!this.videoBlob) return false;
+                const url = this._lastUrl || URL.createObjectURL(this.videoBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename + '.' + this.videoExt;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                return true;
+            }
+        }
 
         // ====================================================================
         //  GameController
@@ -2417,6 +3513,9 @@
                 root.style.setProperty('--bg2', t.bg2);
                 root.style.setProperty('--bg3', t.bg3);
                 root.style.setProperty('--accent', t.accent);
+                Object.keys(THEMES).forEach(k => document.body.classList.remove('theme-' + k));
+                document.body.classList.add('theme-' + (THEMES[themeKey] ? themeKey : 'default'));
+                this.currentTheme = THEMES[themeKey] ? themeKey : 'default';
             }
         }
 
@@ -2427,11 +3526,153 @@
             init() {
                 this.ui = new UIController();
                 this.gc = new GameController(this.ui);
+                this.studio = new AnimationStudio(document.getElementById('animCanvas'));
+                this.lastAnimOpts = null;
                 this.setupEmailPopup();
                 this.setupDropdowns();
                 this.setupMenus();
+                this.setupAnimationStudio();
                 this.setupGlobalCounter();
                 this.showScreen('homeScreen');
+            },
+
+            showAnimScreen(id) {
+                ['animLoading', 'animPreview'].forEach(s => {
+                    document.getElementById(s).classList.add('hidden');
+                });
+                if (id) document.getElementById(id).classList.remove('hidden');
+            },
+
+            async runAnimationFlow(opts) {
+                this.lastAnimOpts = opts;
+                this.studio._cancelled = false;
+                this.ui.applyTheme(opts.themeKey || 'default');
+                this.studio.setTheme(opts.themeKey || 'default');
+                this.studio.setFlipped(opts.humanColor === -1);
+
+                document.querySelectorAll('.pregame').forEach(el => el.classList.add('hidden'));
+                this.ui.gameContainer.classList.remove('active');
+                document.getElementById('btnAnimFloat').classList.remove('visible');
+                document.getElementById('animExportModal').classList.add('hidden');
+                this.showAnimScreen('animLoading');
+
+                const titleEl = document.getElementById('animLoadingTitle');
+                const pctEl = document.getElementById('animLoadingPct');
+                titleEl.textContent = 'Préparation de la vidéo';
+                pctEl.textContent = '0%';
+
+                try {
+                    if (opts.moves && opts.moves.length > 0) {
+                        this.studio.moves = opts.moves.slice();
+                    } else {
+                        const ok = await this.studio.generateGame({ targetPlies: 32 });
+                        if (!ok) throw new Error('Aucune partie générée');
+                    }
+                    if (this.studio._cancelled) return;
+
+                    titleEl.textContent = 'Enregistrement…';
+                    const result = await this.studio.record({
+                        format: '16:9',
+                        fps: 30,
+                        onProgress: p => { pctEl.textContent = Math.round(p * 100) + '%'; },
+                    });
+                    if (!result || this.studio._cancelled) return;
+
+                    const video = document.getElementById('animVideo');
+                    try { video.pause(); } catch(e){}
+                    video.src = result.url;
+                    video.load();
+                    this.showAnimScreen('animPreview');
+                    const tryPlay = () => video.play().catch(() => {});
+                    if (video.readyState >= 2) tryPlay();
+                    else video.addEventListener('loadeddata', tryPlay, { once: true });
+                } catch (e) {
+                    console.error('Animation error:', e);
+                    this.ui.showToast("Impossible de générer l'animation");
+                    this.showAnimScreen(null);
+                    this.ui.gameContainer.classList.add('active');
+                    if (this.gc.movesPlayed && this.gc.movesPlayed.length > 0) {
+                        document.getElementById('btnAnimFloat').classList.add('visible');
+                    }
+                }
+            },
+
+            setupAnimationStudio() {
+                document.getElementById('btnAnimRecreate').addEventListener('click', () => {
+                    this.studio.cancel();
+                    const video = document.getElementById('animVideo');
+                    try { video.pause(); video.removeAttribute('src'); video.load(); } catch(e){}
+                    this.showAnimScreen(null);
+                    document.getElementById('animExportModal').classList.add('hidden');
+                    // Retour à l'échiquier avec les coups préservés
+                    this.ui.gameContainer.classList.add('active');
+                    if (this.gc.movesPlayed && this.gc.movesPlayed.length > 0) {
+                        document.getElementById('btnAnimFloat').classList.add('visible');
+                    }
+                });
+
+                document.getElementById('btnAnimBackMenu').addEventListener('click', () => {
+                    this.studio.cancel();
+                    const video = document.getElementById('animVideo');
+                    try { video.pause(); video.removeAttribute('src'); video.load(); } catch(e){}
+                    this.showAnimScreen(null);
+                    document.getElementById('animExportModal').classList.add('hidden');
+                    this.gc.cleanup();
+                    document.getElementById('btnAnimFloat').classList.remove('visible');
+                    this.ui.gameContainer.classList.remove('anim-centered');
+                    this.ui.gameContainer.classList.remove('active');
+                    this.ui.panel.style.opacity = '1';
+                    this.ui.applyTheme('default');
+                    this.showScreen('homeScreen');
+                });
+
+                document.getElementById('btnAnimExport').addEventListener('click', () => {
+                    document.getElementById('exportProgress').textContent = '';
+                    document.getElementById('btnExportConfirm').disabled = false;
+                    document.getElementById('btnExportCancel').disabled = false;
+                    document.getElementById('animExportModal').classList.remove('hidden');
+                });
+
+                document.getElementById('btnExportCancel').addEventListener('click', () => {
+                    document.getElementById('animExportModal').classList.add('hidden');
+                });
+
+                document.getElementById('btnExportConfirm').addEventListener('click', async () => {
+                    const fmtBtn = document.querySelector('#exportFormatOptions button.active');
+                    const fpsBtn = document.querySelector('#exportFpsOptions button.active');
+                    const format = fmtBtn ? fmtBtn.dataset.format : '16:9';
+                    const fps = fpsBtn ? parseInt(fpsBtn.dataset.fps) : 30;
+                    const progressEl = document.getElementById('exportProgress');
+                    const confirmBtn = document.getElementById('btnExportConfirm');
+                    const cancelBtn = document.getElementById('btnExportCancel');
+                    confirmBtn.disabled = true;
+                    cancelBtn.disabled = true;
+                    progressEl.textContent = 'Génération de la vidéo…';
+
+                    try {
+                        const result = await this.studio.record({
+                            format, fps,
+                            onProgress: p => { progressEl.textContent = `Rendu… ${Math.round(p*100)}%`; },
+                        });
+                        if (!result) { progressEl.textContent = ''; return; }
+                        progressEl.textContent = 'Téléchargement…';
+                        const themeTag = (this.lastAnimOpts && this.lastAnimOpts.themeKey) || 'default';
+                        const fname = `albert-animation-${themeTag}-${format.replace(':','x')}-${fps}fps`;
+                        this.studio.downloadLast(fname);
+                        progressEl.textContent = '✓ Vidéo téléchargée';
+                        setTimeout(() => {
+                            document.getElementById('animExportModal').classList.add('hidden');
+                            progressEl.textContent = '';
+                        }, 1200);
+                    } catch (e) {
+                        console.error('Export error:', e);
+                        progressEl.textContent = "Erreur d'export";
+                        this.ui.showToast("Erreur pendant l'export");
+                    } finally {
+                        confirmBtn.disabled = false;
+                        cancelBtn.disabled = false;
+                    }
+                });
             },
 
             setupEmailPopup() {
@@ -2591,6 +3832,7 @@
                     const humanColor = parseInt(document.querySelector('#animColorOptions button.active')?.dataset.color || '1');
                     const themeKey = document.querySelector('#themeOptions button.active')?.dataset.theme || 'default';
                     this.ui.applyTheme(themeKey);
+                    this.lastAnimTheme = themeKey;
                     this.launchGame({ mode: 'anim', humanColor, gameDurationMin: 0 });
                 });
 
@@ -2604,7 +3846,17 @@
                     this.ui.applyTheme('default');
                 });
 
-                document.getElementById('btnAnimFloat').addEventListener('click', () => this.gc.replay());
+                document.getElementById('btnAnimFloat').addEventListener('click', () => {
+                    if (!this.gc.movesPlayed || this.gc.movesPlayed.length === 0) {
+                        this.ui.showToast('Jouez au moins un coup');
+                        return;
+                    }
+                    this.runAnimationFlow({
+                        humanColor: this.gc.humanColor,
+                        themeKey: this.lastAnimTheme || 'default',
+                        moves: this.gc.movesPlayed.slice(),
+                    });
+                });
                 this.ui.btnUndo.addEventListener('click', () => this.gc.undo());
             },
 
@@ -2681,5 +3933,137 @@
         else App.init();
     })();
     </script>
+
+<!-- MENTIONS LÉGALES -->
+<style>
+.legal-footer {
+    position: fixed;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    z-index: 5000;
+    pointer-events: none;
+}
+.legal-footer button {
+    pointer-events: auto;
+    background: rgba(2,6,23,0.65);
+    border: 1px solid rgba(56,189,248,0.25);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s cubic-bezier(0.25,1,0.5,1);
+}
+.legal-footer button:hover {
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(56,189,248,0.25);
+    transform: translateY(-1px);
+}
+#legalOverlay .email-modal {
+    max-height: 82vh;
+    overflow-y: auto;
+    text-align: left;
+    width: min(640px, 92vw);
+    padding: 32px 28px;
+}
+#legalOverlay .email-modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+#legalOverlay .email-modal p {
+    margin-bottom: 14px;
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+#legalOverlay .email-modal strong {
+    color: #fff;
+    font-weight: 600;
+}
+#legalOverlay .email-modal a {
+    color: var(--accent);
+    text-decoration: none;
+}
+#legalOverlay .email-modal a:hover {
+    text-decoration: underline;
+}
+#btnCloseLegal {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(56,189,248,0.3);
+    background: var(--button);
+    color: #fff;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+#btnCloseLegal:hover {
+    background: var(--button-hover);
+    box-shadow: 0 0 15px rgba(56,189,248,0.3);
+}
+</style>
+
+<div class="legal-footer">
+    <button id="btnLegal">Mentions légales</button>
+</div>
+
+<div class="email-overlay hidden" id="legalOverlay">
+    <div class="email-modal">
+        <h2>Mentions légales — Albert</h2>
+        <p>Albert est un service gratuit et sans but lucratif proposé par Oscar Sander (PikleChess) à sa communauté.<br>
+        Aucune version payante n’existe et aucune ne sera jamais proposée.<br>
+        La mention « PRO » signale simplement qu’une fonction sollicite davantage les ressources de votre navigateur.</p>
+        
+        <p>Le site est hébergé sur GitHub Pages. Les parties ne sont ni sauvegardées ni associées à un compte.</p>
+        
+        <p><strong>Adresse email</strong><br>
+        Elle est demandée uniquement pour vérifier l’existence de vrais utilisateurs et vous informer des mises à jour. Aucun message commercial n’est envoyé. L’adresse n’est jamais cédée à des tiers. Vous pouvez demander sa suppression à tout moment (contact ci-dessous). Conformément au RGPD, la suppression est effective sous 30 jours.</p>
+        
+        <p><strong>Interdiction de triche</strong><br>
+        Il est strictement interdit d’utiliser Albert pour obtenir un avantage déloyal sur une plateforme d’échecs en ligne. Toute utilisation à des fins de triche est de votre seule responsabilité.</p>
+        
+        <p><strong>Responsabilité</strong><br>
+        Albert est fourni « tel quel », sans garantie de disponibilité ou d’absence d’erreur. L’utilisation du service est sous votre propre responsabilité, notamment pour la sollicitation de votre matériel.</p>
+        
+        <p><strong>Contact</strong><br>
+        Email : <a href="mailto:oscaradressepro@gmail.com">oscaradressepro@gmail.com</a><br>
+        GitHub : <a href="https://piklechess.github.io/albert" target="_blank">dépôt piklechess.github.io/albert</a><br>
+        Albert est entièrement gratuit, mais si vous souhaitez soutenir le projet, un petit don est toujours apprécié.</p>
+        
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;">
+            <a href="https://www.youtube.com/@PikleChess" target="_blank" style="display:inline-block; padding:10px 18px; background:rgba(255,0,0,0.15); border:1px solid rgba(255,0,0,0.4); color:#fff; border-radius:10px; font-weight:600; text-decoration:none; transition:all 0.3s; font-size:0.9rem;">▶ YouTube : PikleChess</a>
+            <a href="https://checkout.revolut.com/pay/941ec457-c373-4374-8b62-5c240f477007" target="_blank" style="display:inline-block; padding:10px 18px; background:var(--button); border:1px solid rgba(56,189,248,0.4); color:#fff; border-radius:10px; font-weight:600; text-decoration:none; transition:all 0.3s; font-size:0.9rem; box-shadow:0 0 12px rgba(56,189,248,0.2);">♥ Faire un don</a>
+        </div>
+        
+        <p style="color:var(--text-muted); font-size:0.85rem; margin-top:20px;">Dernière mise à jour : Mai 2026</p>
+        
+        <button id="btnCloseLegal">Fermer</button>
+    </div>
+</div>
+
+<script>
+(function(){
+    const btn = document.getElementById('btnLegal');
+    const overlay = document.getElementById('legalOverlay');
+    const closeBtn = document.getElementById('btnCloseLegal');
+    if(btn && overlay){
+        btn.addEventListener('click', () => overlay.classList.remove('hidden'));
+        closeBtn.addEventListener('click', () => overlay.classList.add('hidden'));
+        overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.add('hidden'); });
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.classList.contains('hidden')) overlay.classList.add('hidden'); });
+    }
+})();
+</script>
+
 </body>
 </html>
